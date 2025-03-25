@@ -4,9 +4,10 @@ require './db/connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $Username = htmlspecialchars($_POST["username"]);
+    echo $Username;
     $password = htmlspecialchars($_POST["password"]);
 
-    $sql = "select username,password from the user where username=?";
+    $sql = "select username,password from user where username=?";
     $stmt = $conn->prepare($sql);
 
     if (!$stmt) {
@@ -21,12 +22,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($stmt->num_rows > 0) {
         $stmt->bind_result($username, $hash_password);
         $stmt->fetch();
+        $_SESSION['username'] = $username; 
 
        
         if (password_verify($password, $hash_password)) {
-            $_SESSION["username"] = $username;
-
-            header("Location: /frontend/FlipkartHomePage/index.html");
+           
+            header("Location:/frontend/FlipkartHomePage/index.php");
             exit();
         } else {
             echo "Invalid password.";
@@ -39,4 +40,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->close();
     $conn->close();
 }
-?>
+
