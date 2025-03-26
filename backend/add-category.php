@@ -12,7 +12,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
    
      if($stmp->execute()){
         echo "category added succesfully";
-         header("location:./add-category.php");
+         header("location:/frontend/FlipkartHomePage/admin/category.html");
         exit();
      }else{
         echo "category doesnt added";
