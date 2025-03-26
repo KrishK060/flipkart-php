@@ -1,7 +1,7 @@
 <?php
 require './db/connection.php';
 header("Content-type:application/json");
-$sql = "select category_name from category";
+$sql = "select * from category";
 $result = $conn->query($sql);
 $category=[];
 if($result->num_rows>0){
