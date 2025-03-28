@@ -3,6 +3,14 @@ session_start();
 if (!isset($_SESSION["username"])) {
     header("location:/frontend/loginsignup/login.html");
     exit();
+} else if (isset($_SESSION['username']) && $_SESSION["user_role"] == "user") {
+    echo $_SESSION["user_role"];
+    echo '<script>
+        window.onload = function() {
+            document.querySelector(".admin").style.display = "none";
+        };
+      </script>';
+
 }
 ?>
 <!DOCTYPE html>
@@ -62,7 +70,7 @@ if (!isset($_SESSION["username"])) {
                         </button>
                         <span class="dn3">Customer</span>
                     </div>
-                    <a class="btn btn-primary ms-2" href="./admin/index.html" role="button">admin panel</a>
+                    <a class="btn btn-primary ms-2 admin" href="./admin/index.html" role="button">admin panel</a>
                     <a href="/backend/logout.php" class="btn btn-danger mr-2" onclick="return confirm('Are you sure you want to log out?')">Logout</a>
                 </div>
             </nav>
