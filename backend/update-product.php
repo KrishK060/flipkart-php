@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($product_id > 0 && !empty($product_name)) {
         $sql = "UPDATE product SET product_name=?,product_image=?,product_price=?, product_description=?, product_category=? WHERE product_id=?";
         $stmp = $conn->prepare($sql);
-        $stmp->bind_param('ssissi', $product_name, $product_img, $product_price, $product_description, $product_category,$product_id );
+        $stmp->bind_param('ssisii', $product_name, $product_img, $product_price, $product_description, $product_category,$product_id );
 
         if ($stmp->execute()) {
             move_uploaded_file($_FILES['pimg']['tmp_name'], "/home/krish.kalaria@simform.dom/Desktop/LMS-2/Flipkart-php/flipkart-php/frontend/" . $_FILES['pimg']['name']);

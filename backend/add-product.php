@@ -8,16 +8,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
 
     $product_name = htmlspecialchars($_POST["pname"]);
-    $product_image = basename($_FILES["pimg"]['name']); // Ensure a clean filename
+    $product_image = basename($_FILES["pimg"]['name']); 
     $product_price = htmlspecialchars($_POST["pprice"]);
     $product_description = htmlspecialchars($_POST["ptext"]);
     $product_category = htmlspecialchars($_POST["category"]);
+    $product_avability = htmlspecialchars($_POST["avability"]);
+
 
    
-    $sql = 'INSERT INTO product(product_name, product_image, product_price, product_description, product_category) 
-            VALUES (?, ?, ?, ?, ?)';
+    $sql = 'INSERT INTO product(product_name, product_image, product_price, product_description, product_category,product_avalaible) 
+            VALUES (?, ?, ?, ?, ?, ?)';
     $stmp = $conn->prepare($sql);
-    $stmp->bind_param('ssiss', $product_name, $product_image, $product_price, $product_description, $product_category);
+    $stmp->bind_param('ssisis', $product_name, $product_image, $product_price, $product_description, $product_category,$product_avability);
 
     if ($stmp->execute()) {
         move_uploaded_file($_FILES['pimg']['tmp_name'], "/home/krish.kalaria@simform.dom/Desktop/LMS-2/Flipkart-php/flipkart-php/frontend/" . $_FILES['pimg']['name']);
