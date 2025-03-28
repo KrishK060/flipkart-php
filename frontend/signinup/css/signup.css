@@ -1,0 +1,137 @@
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: whitesmoke;
+    margin: 0;
+    background-image: linear-gradient(to right, #5433ff,#20bdff, #a5fecb);
+}
+
+.loginpage{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgb(107, 156, 156);
+    height: 500px;
+    width: 500px;
+    /* margin:auto; */
+    padding: 150px;
+    border: 5px solid black;
+}
+
+.inputs{
+   /* margin: 70px 90px; */
+   /* padding: 100px; */
+   display: flex;
+   align-items: center;
+   justify-content: center;
+  
+   
+}
+.inputs input{
+    padding: 10px;
+    display: inline-block;
+}
+#Signin{
+    position:relative;
+    animation-duration:4s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-name: example1;
+}
+@keyframes example1 {
+    0%{left:0px ; top:0px}
+    25%{left:-20px;top:0px}
+    50%{left:-40px;top:0px}
+    100%{left:0px;top:0px}    
+}
+.btn{
+    margin: 0 10px;
+    color: darkcyan;
+    background-color: white;
+    padding:20px;
+    width:max-content;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+  
+}
+#Signin:hover{
+    transition: width 10s;
+    width: 250px;
+}
+
+#signup{
+    color: white;
+    position:relative;
+    background-color: darkcyan;
+    animation-name: example;
+    animation-duration: 4s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+@keyframes example {
+    0%{left:0px ; top:0px}
+    25%{left:20px;top:0px}
+    50%{left:40px;top:0px}
+    100%{left:0px;top:0px}    
+}
+
+
+.userinputs{
+    width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 5px;
+    width:100%;
+    height:40px;
+   
+}
+.userinputs input{
+    outline: none;
+    background-color: inherit;
+    border: none;
+    padding: 0;
+    /* height: 8px; */
+
+
+}
+.usr{
+    width:100%;
+    height:40px;
+    border-radius: 5px;
+}
+.psw{
+    width:100%;
+    height:40px;
+    border-radius: 5px;
+}
+
+.input-form{
+    display: flex;
+    gap:26px;
+    width: 100%;
+    /* align-items: center; */
+    justify-content: center;
+    flex-direction: column; 
+    margin-top: 40px;
+    
+}
+.forgot{
+    font-size: large;
+}
+
+.btn1{
+    width:100%;
+    height:50px;
+}
+.btn1:hover{
+    transition: width 2s, height 4s;
+    width: 100px;
+    height: 50px;
+}
+
