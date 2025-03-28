@@ -8,19 +8,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $product_price = isset($_POST["pprice"]) ? trim($_POST["pprice"]) : "";
     $product_description = isset($_POST["ptext"]) ? trim($_POST["ptext"]) : "";
     $product_category = isset($_POST["category"]) ? trim($_POST["category"]) : "";
-
+    $product_avability = isset($_POST["avability"]) ? trim($_POST["avability"]) : "";
+    $product_discount = isset($_POST["pdiscount"]) ? intval($_POST["pdiscount"]) : 0;
 
     if ($product_id > 0 && !empty($product_name)) {
-        $sql = "UPDATE product SET product_name=?,product_image=?,product_price=?, product_description=?, product_category=? WHERE product_id=?";
-        $stmp = $conn->prepare($sql);
-        $stmp->bind_param('ssisii', $product_name, $product_img, $product_price, $product_description, $product_category,$product_id );
+        if (!empty($product_img)) {
+            
+            $upload_dir = "/home/krish.kalaria@simform.dom/Desktop/LMS-2/Flipkart-php/flipkart-php/frontend/";
+            $target_file = $upload_dir . basename($product_img);
+            move_uploaded_file($_FILES['pimg']['tmp_name'], $target_file);
+
+           
+            $sql = "UPDATE product SET product_name=?, product_image=?, product_price=?, product_description=?, product_category=?, product_avalaible=?, discount=? WHERE product_id=?";
+            $stmp = $conn->prepare($sql);
+            $stmp->bind_param('ssisisii', $product_name, $product_img, $product_price, $product_description, $product_category, $product_avability, $product_discount, $product_id);
+        } else {
+          
+            $sql = "UPDATE product SET product_name=?, product_price=?, product_description=?, product_category=?, product_avalaible=?, discount=? WHERE product_id=?";
+            $stmp = $conn->prepare($sql);
+            $stmp->bind_param('sisisii', $product_name, $product_price, $product_description, $product_category, $product_avability, $product_discount, $product_id);
+        }
 
         if ($stmp->execute()) {
-            move_uploaded_file($_FILES['pimg']['tmp_name'], "/home/krish.kalaria@simform.dom/Desktop/LMS-2/Flipkart-php/flipkart-php/frontend/" . $_FILES['pimg']['name']);
             $response = ["success" => true, "message" => "Product updated successfully"];
         } else {
             $response = ["success" => false, "message" => "Failed to update product"];
         }
+
         $stmp->close();
     } else {
         $response = ["success" => false, "message" => "Invalid input"];
