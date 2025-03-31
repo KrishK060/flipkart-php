@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & signup</title>
+    <link rel="stylesheet" href="/assests/css/signup.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+    <div class="loginpage">
+        <div class="inputs">
+            <a href="/assests/html/login.html" class="btn" id="Signin" style="border: 5px solid black;"><i class="fa-solid fa-user" style="margin: 0 5px;"></i>Login</a>
+            <a href="#"  class="btn" id="signup" style="border: 5px solid black;" ><i class="fa-solid fa-user-plus" style="margin: 0 5px;"></i>Signup</a>
+        </div>
+        <form action="/signup.php" class="input-form" method="post">
+            <div class="userinputs">
+                <i class="fa-regular fa-envelope" style="margin: 0 5px;"></i><input type="email" class="usr" id="email" placeholder="email" name="email" >
+            </div>
+            <div class="userinputs">
+                <i class="fa-solid fa-user" style="margin: 0 5px;"></i><input type="text" class="usr" id="usr" placeholder="username" name="username">
+            </div>
+            <div class="userinputs">
+                <i class="fa-solid fa-lock" style="margin: 0 5px;"></i><input type="password" class="psw" id="psw" placeholder="password" name="password">
+            </div>
+            <div class="userinputs">
+                <i class="fa-solid fa-lock" style="margin: 0 5px;"></i> <input type="password" class="cpsw" id="cpsw" placeholder="confirm password" name="confirm_password">
+            </div>
+            <div class="userinputs">
+                <i class="fa-solid fa-calendar-days" style="margin: 0 5px;"></i><input type="date" class="usr" id="birthday" placeholder="DOB" name="dob"> 
+            </div>
+            <div class="userinputs">
+                <i class="fa-solid fa-phone" style="margin: 0 5px;"></i><input type="number" class="usr" id="phone-number"  pattern="[0-9]{10}" placeholder="phone number" name="phone_number">
+            </div>
+            <!-- <div class="userinputs">
+            <label for="image" class="header">Profile Photo:</label>
+                
+            <input id="image" type="file" name="profile_photo" placeholder="Photo" required="" capture style="display: none; border-radius: 50%;">
+            </div> -->
+
+            <div class="rem">
+                <input type="checkbox" class="check" id="check" name="">
+                <label for="check">Accept terms and conditions</label>
+            </div>
+
+            <div class="inputs">
+                <input type="submit" class="btn1" id="signin" value="Signup" style="border: 5px solid black;">
+            </div>
+
+        </form>
+    </div>
+
+</body>
+
+</html>

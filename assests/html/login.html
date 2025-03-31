@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & signup</title>
+    <link rel="stylesheet" href="/assests/css/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+    <div class="loginpage">
+        <marquee class="marq">welcome to login page!!</marquee>
+        <div class="inputs">
+            <a href="#" class="btn" id="signin" style="border: 5px solid black;"><i class="fa-solid fa-user" style="margin: 0 10px;"></i>Login</a>
+            <a href="/assests/html/signup.html"  class="btn" id="signup" style="border: 5px solid black;"><i class="fa-solid fa-user-plus" style="margin: 0 5px;"></i>Signup</a>
+        </div>
+        <form action="/login.php" method="POST"  class="input-form">
+            <div class="userinputs">
+                <i class="fa-solid fa-user" style="margin: 0 5px;" ></i><input type="text" class="usr" id="usr" placeholder="username" name="username">
+            </div>
+            <div class="userinputs">
+                <i class="fa-solid fa-lock"style="margin: 0 5px;"></i><input type="password" class="psw" id="psw" placeholder="password" name="password">
+            </div>
+
+            <a href="#" class="forgot">forgot password?</a>
+
+            <div class="rem">
+                <input type="checkbox" class="check" id="check" name="">
+                <label for="check">Remember me</label>
+            </div>
+
+            <div class="inputs">
+                <input type="submit" class="btn1" id="btn1d" value="Login">
+            </div>
+
+        </form>
+    </div>
+
+</body>
+
+</html>
