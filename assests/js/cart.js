@@ -24,6 +24,10 @@ function getcartdata() {
                 return;
             }
 
+           
+            const row = document.createElement('div');
+            row.classList.add('row', 'g-3'); 
+
             response.forEach(cart => {
                 let discount = cart.product_price - (cart.product_price * cart.discount) / 100;
 
@@ -45,21 +49,43 @@ function getcartdata() {
                             </div>
 
                             <p class="text-muted mb-2"> 
-                                <span class="fw-bold text-success">$${discount}</span>
+                                <span class="fw-bold text-success">$${discount.toFixed(2)}</span>
                             </p>
 
-                            <button class="btn btn-danger w-100 fw-bold py-2">Remove</button>
+                            <button class="btn btn-danger w-100 fw-bold py-2 remove_cart" data-cart-id="${cart.cart_id}">Remove</button>
                         </div>
                     </div>
                 `;
 
-                cartList.appendChild(col);
+                row.appendChild(col); 
             });
+
+            cartList.appendChild(row);
+            $(".remove_cart").click(deletecart);
         },
         error: function (xhr, status, error) {
             console.error("AJAX Error:", status, error);
             console.error("Response Text:", xhr.responseText);
             alert("Error fetching cart data: " + error);
+        }
+    });
+}
+function deletecart(event){
+    event.preventDefault();
+    let del_cart_id = $(this).data('cart-id');
+    console.log(del_cart_id);
+    $.ajax({
+        type: "POST",
+        url: "/delete-cart.php",
+        data: { cart_id: del_cart_id },
+        dataType: "json",
+        success: function (response) {
+            console.log(response);
+        },
+        error: function (xhr, status, error) {
+            console.error("AJAX Error:", status, error);
+            console.error("Response Text:", xhr.responseText);
+            alert("Error updating category: " + error);
         }
     });
 }
