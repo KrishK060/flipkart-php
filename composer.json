@@ -1,0 +1,17 @@
+{
+    "name": "krish.kalariasimform.dom/flipkart-php",
+    "autoload": {
+        "psr-4": {
+            "KrishKalariasimformDom\\FlipkartPhp\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Krishk060",
+            "email": "krishkalaria0601@gmail.com"
+        }
+    ],
+    "require": {
+        "stripe/stripe-php": "^16.6"
+    }
+}
