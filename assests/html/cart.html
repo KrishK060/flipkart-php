@@ -42,12 +42,8 @@
                     </div>
 
                     <div class="cart">
-                        <a href="/assests/html/cart.html">
-                            <button class="btn" type="button">
-                                <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/header_cart-eed150.svg"
-                                    alt="Cart">
-                            </button>
-                            <span class="dn3">Cart</span>
+                        <a href="/index.php">
+                           Home Page
                         </a>
                     </div>
 
@@ -76,7 +72,23 @@
                     <div class="items" id="add-items">
 
                     </div>
-                    <div class="card">
+                    <div class="card w-100 shadow-sm rounded-lg p-3">
+                        <div class="card-body">
+                            <p class="text-muted mb-2">
+                                Total Price (<span id="numberofitem"></span> items) = 
+                                <span class="fw-bold text-success" id="totalprice"></span>
+                            </p>
+                            <p class="text-muted mb-2">
+                                Delivery: <span class="text-success">Free delivery</span>
+                            </p>
+                            <hr class="my-4">
+                            <p class="text-muted mb-2">
+                                Total amount: <span class="text-success" id="totalamount"></span>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="payment">
                         <div class="card-body">
                             <button type="button" data-mdb-button-init data-mdb-ripple-init
                                 class="btn btn-warning btn-block btn-lg">Proceed to Pay</button>
