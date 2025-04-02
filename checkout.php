@@ -1,5 +1,4 @@
 <?php
-
 require_once 'vendor/autoload.php'; 
 require_once 'config.php';
 
@@ -7,14 +6,11 @@ require_once 'config.php';
 
 header('Content-Type: application/json');
 
-
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-
 $data = json_decode(file_get_contents("php://input"), true);
-
 
 if (isset($data['totalAmount']) && is_numeric($data['totalAmount'])) {
     $totalAmount = $data['totalAmount'] * 100;
@@ -42,8 +38,6 @@ try {
         'success_url' => 'http://myflipkartphp.com/success.php',
         'cancel_url' => 'http://myflipkartphp.com/cancel.php',
     ]);
-
-  
     echo json_encode(['id' => $checkout_session->id]);
 } catch (Exception $e) {
    

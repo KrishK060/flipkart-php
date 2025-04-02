@@ -4,7 +4,6 @@ $(document).ready(function () {
 });
 function fetchProductData() {
     const productList = document.getElementById('adding');
-    console.log(productList);
     if (!productList) {
         console.error("Element #adding not found in the DOM.");
         return;
@@ -15,8 +14,6 @@ function fetchProductData() {
         url: "/fetch-product3.php",
         dataType: "json",
         success: function (response) {
-            console.log(response)
-            
             productList.innerHTML = '';
             let rowsCategory = {};
 
@@ -48,7 +45,6 @@ function fetchProductData() {
                     rowsCategory[categoryID] = categoryRow;
                 }
                 let discount = (product.product_price)-(product.product_price * product.discount)/100;
-                console.log(discount);
                 const col = document.createElement('div');
                 col.classList.add('col-md-4', 'd-flex');
 
@@ -71,14 +67,10 @@ function fetchProductData() {
                 `;
                 rowsCategory[categoryID].appendChild(col);
                  }
-                 
-                    
-                
-            });
+                 });
 
             $(".cart_btn").click(addtocart);
-           
-        },
+            },
         error: function (xhr, status, error) {
             console.error("AJAX Error:", status, error);
             console.error("Response Text:", xhr.responseText);
@@ -104,8 +96,6 @@ function addtocart(event) {
             } else {
                 alert("product already exist in cart!");
             }
-
-
         },
         error: function(xhr, status, error) {
             console.error("AJAX Error:", status, error);

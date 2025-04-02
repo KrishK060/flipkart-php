@@ -1,3 +1,13 @@
+<?php
+session_start();
+if($_SESSION["user_role"] == "user") {
+    echo '<script>
+        window.onload = function() {
+            document.querySelector(".admin").style.display = "none";
+        };
+      </script>';
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -54,7 +64,7 @@
                         </button>
                         <span class="dn3">Customer</span>
                     </div>
-                    <a class="btn btn-primary ms-2" href="/assests/html/index.html" role="button">admin panel</a>
+                    <a class="btn btn-primary ms-2 admin" href="/assests/html/index.html" role="button">admin panel</a>
                     <a href="/logout.php" class="btn btn-danger mr-2"
                         onclick="return confirm('Are you sure you want to log out?')">Logout</a>
                 </div>
@@ -87,16 +97,6 @@
                             </p>
                         </div>
                     </div>
-                    
-                   
-                    <!-- <form action="submit.php" method="POST">
-                        <div class="payment">
-                            <div class="card-body">
-                                <button type="button" data-mdb-button-init data-mdb-ripple-init
-                                    class="btn btn-warning btn-block btn-lg">Proceed to Pay</button>
-                            </div>
-                        </div>
-                    </form> -->
                     <form action="checkout.php" method="POST">
                         <button type="submit" class="btn btn-warning btn-block btn-lg">Proceed to Pay</button>
                     </form>

@@ -1,266 +1,172 @@
-const fileInput = document.querySelector('#pimg');
-let base64String = "";
-let data = JSON.parse(localStorage.getItem('crud')) || [];
-let category = JSON.parse(localStorage.getItem('category')) || [];
-const searchInput = document.querySelector('#pinput');
-let idForUpadate = "";
-
-searchInput.addEventListener('input', function () {
-    const searchValue = searchInput.value.trim();
-    if (searchValue !== "") {
-        const filteredData = data.filter(item => item.id == searchValue || item.name.includes(searchValue));
-        renderProducts(filteredData);
-    } else {
-        renderProducts(data);
-    }
+$(document).ready(function () {
+    get_cetagory_data();
+    display_data();
 });
-
-function renderProducts(filteredData = data) {
-    const tbody = document.querySelector('#table tbody');
-    tbody.innerHTML = '';
-    if (filteredData.length === 0) {
-        const row = document.createElement('tr');
-        const cell = document.createElement('td');
-        cell.colSpan = 6;
-        cell.classList.add('text-center');
-        cell.innerHTML = 'No product found';
-        row.appendChild(cell);
-        tbody.appendChild(row);
-        return;
-    }
-    filteredData.forEach(item => {
-        const row = document.createElement('tr');
-
-        const idCell = document.createElement('td');
-        idCell.innerHTML = item.id;
-
-        const nameCell = document.createElement('td');
-        nameCell.innerHTML = item.name;
-
-        const imgCell = document.createElement('td');
-        const image = document.createElement('img');
-        image.src = item.img;
-        image.height = 50;
-        imgCell.appendChild(image);
-
-        const priceCell = document.createElement('td');
-        priceCell.innerHTML = item.price;
-
-        const descriptionCell = document.createElement('td');
-        descriptionCell.innerHTML = item.disc;
-
-        const categorycell = document.createElement('td')
-        categorycell.innerHTML = item.category;
-
-        const actionCell = document.createElement('td');
-        const editBtn = document.createElement('button');
-        editBtn.classList.add('btn', 'btn-primary');
-        editBtn.setAttribute('data-type', 'editdata');
-        editBtn.setAttribute('data-id', item.id);
-        editBtn.innerHTML = 'Edit';
-        editBtn.addEventListener('click', () => editProduct(item.id));
-
-        const deleteBtn = document.createElement('button');
-        deleteBtn.classList.add('btn', 'btn-primary');
-        deleteBtn.setAttribute('data-type', 'deldata');
-        deleteBtn.setAttribute('data-id', item.id);
-        deleteBtn.innerHTML = 'Delete';
-        deleteBtn.addEventListener('click', () => deleteProduct(item.id));
-
-        actionCell.appendChild(editBtn);
-        actionCell.appendChild(deleteBtn);
-
-        row.appendChild(idCell);
-        row.appendChild(nameCell);
-        row.appendChild(imgCell);
-        row.appendChild(priceCell);
-        row.appendChild(descriptionCell);
-        row.appendChild(actionCell);
-        row.appendChild(categorycell);
-
-        tbody.appendChild(row);
+function get_cetagory_data() {
+    $.ajax({
+        type: "GET",
+        url: "/fetch-product.php",
+        dataType: "json",
+        success: function (response) {
+            $('#category').empty();
+            $.each(response, function (key, value) {
+                $('#category').append(
+                    ` <option value="${value.category_id}" data-val="${key}" >${value.category_name}</option>`
+                )
+            })
+        },
+        error: function (xhr, status, error) {
+            console.error("AJAX Error:", status, error);
+            console.error("Response Text:", xhr.responseText);
+            alert("Error fetching products: " + error);
+        }
     });
 }
-renderProducts();
 
-function editProduct(id) {
-    document.getElementById('form').dataset.form = "edit";
-    let product = data.find(item => item.id == id);
-    idForUpadate = id;
-    document.getElementById('pname').value = product.name;
-    document.getElementById('pprice').value = product.price;
-    document.getElementById('ptext').value = product.disc;
-    document.getElementById('selectCategory').value = product.category;
-    let previewImg = document.querySelector('#pimg');
-    previewImg.src = product.img;
-    previewImg.style.display = 'block';
-}
-
-fileInput.addEventListener('change', async (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onloadend = function () {
-        base64String = reader.result;
-
-    };
-    reader.readAsDataURL(file);
-});
-
-function toggleSort(field) {
-    const ascending = isAscending;
-    const idSortIcon = document.getElementById('id-sort');
-    const nameSortIcon = document.getElementById('name-sort');
-    const priceSortIcon = document.getElementById('price-sort');
-    data.sort((a, b) => {
-        if (field === 'name') {
-            return ascending
-                ? a[field].localeCompare(b[field])
-                : b[field].localeCompare(a[field]);
-        } else if (field === 'price') {
-            return ascending
-                ? parseFloat(a[field]) - parseFloat(b[field])
-                : parseFloat(b[field]) - parseFloat(a[field]);
-        } else {
-            return ascending
-                ? a[field] - b[field]
-                : b[field] - a[field];
+function display_data() {
+    $.ajax({
+        type: "GET",
+        url: "/fetch-product2.php",
+        dataType: "json",
+        success: function (response) {
+            $.each(response, function (key, value) {
+                $('#table tbody').append(
+                    '<tr>' +
+                        '<td class="stud_id">' + value['product_id'] + '</td>' +
+                        '<td>' + value['product_name'] + '</td>' +
+                        '<td><img src="/upload-image/' + value['product_image'] + '" width="100px" alt="img"></td>' +
+                        '<td>' + value['product_price'] + '</td>' +
+                        '<td>' + value['discount'] + '</td>' +
+                        '<td>' + value['product_description'] + '</td>' +
+                        '<td>' + value['product_category'] + '</td>' +
+                        '<td>' + value['product_avalaible'] + '</td>' +
+                        '<td>' + value['product_stock'] + '</td>'+
+                        '<td>\
+                            <a href="#" class="btn btn-sm btn-primary edit_btn" data-id="' + value['product_id'] + '" data-name="' + value['product_name'] + '" data-image="' + value['product_image'] +'" data-price="' + value['product_price'] + '" data-description="' + value['product_description'] + '" data-category="' + value['product_category'] + '"data-avability="' + value['product_avalaible'] + '"data-discount="' + value['discount'] + '"data-stock="' + value['product_stock'] + '">EDIT</a>\
+                            <a href="#" class="btn btn-sm btn-danger delete_btn" data-id="' + value['product_id'] + '">DELETE</a>\
+                        </td>' +
+                    '</tr>'
+                );
+            })
+            $(".edit_btn").click(updatedata);
+            $(".delete_btn").click(deleteproduct);
+        },
+        error: function (xhr, status, error) {
+            console.error("AJAX Error:", status, error);
+            console.error("Response Text:", xhr.responseText);
+            alert("Error fetching products: " + error);
         }
     });
-    isAscending = !isAscending;
-    if (field === 'id') {
-        if (isAscending) {
-            idSortIcon.classList.remove("fa-sort-up");
-            idSortIcon.classList.add("fa-sort-down");
-        }
-        else {
-            idSortIcon.classList.remove("fa-sort");
-            idSortIcon.classList.add("fa-sort-up");
-        }
-    }
-    else if (field === 'name') {
-        if (isAscending) {
-            nameSortIcon.classList.remove("fa-sort-up");
-            nameSortIcon.classList.add("fa-sort-down");
-        } else {
-            nameSortIcon.classList.remove("fa-sort");
-            nameSortIcon.classList.add("fa-sort-up");
-        }
-    }
-    else if (field === 'price') {
-        if (isAscending) {
-            priceSortIcon.classList.remove("fa-sort-up");
-            priceSortIcon.classList.add("fa-sort-down");
-        } else {
-            priceSortIcon.classList.remove("fa-sort");
-            priceSortIcon.classList.add("fa-sort-up");
-        }
-    }
-    renderProducts();
-}
-for (let i = 0; i < category.length; i++) {
-    selectCategory.innerHTML += ` <option value="${category[i]['name']}">${category[i]['name']}</option>`;
-    selectCategory.dataset.val = i;
-}
-
-let isAscending = true;
-document.querySelectorAll(".btn").forEach((button) => {
-    button.addEventListener("click", () => {
-        switch (button.dataset.type) {
-            case "editdata":
-                const ProductID = button.dataset.id;
-                document.getElementById("btn1").innerHTML = `edit`;
-                editProduct(ProductID);
-                break;
-            case "deldata":
-                const productId = button.dataset.id;
-                deleteProduct(productId);
-                break;
-            case "sort":
-                toggleSort('id');
-                break;
-            case "namesort":
-                toggleSort('name');
-                break;
-            case "pricesort":
-                toggleSort('price');
-                break;
-        }
-    });
-});
-
-function deleteProduct(id) {
-    const productIndex = data.findIndex(item => item.id == id);
-    if (productIndex !== -1) {
-        data.splice(productIndex, 1);
-        localStorage.setItem('crud', JSON.stringify(data));
-        window.location.reload();
-    }
-}
-
-function addData() {
-    let name = document.getElementById("pname").value;
-    let price = document.getElementById("pprice").value;
-    let disc = document.getElementById("ptext").value;
-    let category = document.getElementById("selectCategory").value;
-    let id = parseInt((data.length > 0) ? data[data.length - 1].id + 1 : 1);
-    let data1 = {
-        id,
-        name,
-        img: base64String,
-        price,
-        disc,
-        category,
-    };
-    data.push(data1);
-    localStorage.setItem('crud', JSON.stringify(data));
-    renderProducts();
-}
-
-function editData() {
-    const updatedName = document.getElementById("pname").value;
-    const updatedImg = base64String || data.find(item => item.id === parseInt(idForUpadate)).img;
-    const updatedPrice = document.getElementById("pprice").value;
-    const updatedDesc = document.getElementById("ptext").value;
-    const updatedCategory = document.getElementById("selectCategory").value;
-
-    const updatedProduct = {
-        id: parseInt(idForUpadate),
-        name: updatedName,
-        price: updatedPrice,
-        disc: updatedDesc,
-        img: updatedImg,
-        category: updatedCategory
-    };
-
-    const productIndex = data.findIndex(item => item.id == parseInt(idForUpadate));
-    if (productIndex !== -1) {
-        data[productIndex] = updatedProduct;
-    }
-    localStorage.setItem('crud', JSON.stringify(data));
-    document.getElementById("btn1").innerHTML = `Submit`;
-    renderProducts();
-}
-
-let form = document.querySelector("#form");
-form.addEventListener("submit", (event) => {
+} 
+function updatedata(event) {
     event.preventDefault();
-    if (form.dataset.form == "add") {
-        addData();
-    } else {
-        editData();
-    }
-     document.getElementById("pname").value = ""
-     document.getElementById("pprice").value = ""
-     document.getElementById("ptext").value = ""
-     form.dataset.form = "add" 
-     
-});
+
+    var new_product_id = $(this).data('id');
+    var current_product_name = $(this).data('name');
+    var current_product_image = $(this).data('image');  
+    var current_product_price = $(this).data('price');
+    var current_product_description = $(this).data('description');
+    var current_product_category = $(this).data('category');
+    var current_product_avability = $(this).data('avability');
+    var current_product_discount = $(this).data('discount');
+    var current_product_stock = $(this).data('stock')
+
+    let productInput = document.getElementById('pname');
+    productInput.value = current_product_name;
+
+    let product_price_Input = document.getElementById('pprice');
+    product_price_Input.value = current_product_price;
+
+    let product_description_Input = document.getElementById('ptext');
+    product_description_Input.value = current_product_description;
+
+    let product_category_Input = document.getElementById('category');
+    $(product_category_Input).val(current_product_category).change(); 
+
+    let product_avability_Input = document.getElementById('avability');
+    $(product_avability_Input).val(current_product_avability).change(); 
+
+    let product_discount_Input = document.getElementById('pdiscount');
+    product_discount_Input.value = current_product_discount;
+
+    let product_stock_Input = document.getElementById('pstock');
+    product_stock_Input.value = current_product_stock;
+    
+
+    $("#form").off("submit").on("submit", function (e) {
+        e.preventDefault();
+        let new_product_name = productInput.value.trim();
+        let new_product_price = product_price_Input.value.trim();
+        let new_product_description = product_description_Input.value.trim();
+        let new_product_category = product_category_Input.value.trim();
+        let new_product_avability = product_avability_Input.value.trim();
+        let new_product_discount = product_discount_Input.value
+        let new_product_stock = product_stock_Input.value
+        let new_product_image = $("#pimg")[0].files[0]; 
+        console.log("new : ",new_product_image)
+        if (!new_product_name || !new_product_price || !new_product_description || !new_product_category || !new_product_avability || !new_product_discount || !new_product_stock) {
+            alert("Update cancelled or invalid input.");
+            return;
+        }
+        let formData = new FormData();
+        formData.append("product_id", new_product_id);
+        formData.append("pname", new_product_name);
+        formData.append("pprice", new_product_price);
+        formData.append("ptext", new_product_description);
+        formData.append("category", new_product_category);
+        formData.append("avability",new_product_avability);
+        formData.append("pdiscount",new_product_discount)
+        formData.append("pstock",new_product_stock);
+
+        if (new_product_image) {
+            console.log("dfgnhfg");
+            formData.append("pimg", new_product_image); 
+        }
+        console.log(new_product_image)
+
+        $.ajax({
+            type: "POST",
+            url: "/update-product.php",
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: "json",
+            success: function (response) {
+                console.log("Server Response:", response);
+                alert(response.message);
+                $('#table tbody').empty();
+                display_data(); 
+            },
+            error: function (xhr, status, error) {
+                console.error("AJAX Error:", status, error);
+                console.error("Response Text:", xhr.responseText);
+                alert("Error updating category: " + error);
+            }
+        });
+    });
+}
+function deleteproduct(event){
+    event.preventDefault();
+    let del_product_id = $(this).data('id');
+    console.log(del_product_id);
+    $.ajax({
+        type: "POST",
+        url: "/delete-product.php",
+        data: { product_id: del_product_id },
+        dataType: "json",
+        success: function (response) {
+            console.log(response);
+        },
+        error: function (xhr, status, error) {
+            console.error("AJAX Error:", status, error);
+            console.error("Response Text:", xhr.responseText);
+            alert("Error updating category: " + error);
+        }
+    });
+}
 
 
 
 
 
-
-
-
-
+  

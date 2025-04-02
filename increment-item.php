@@ -8,9 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $cart_id = isset($_POST["cart_id"]) ? intval($_POST["cart_id"]) : 0;
 
     if ($cart_id > 0) {
-        
-        
-        $sql = "SELECT product_id, quantity FROM cart WHERE cart_id=?";
+        $sql = "select product_id, quantity from cart where cart_id=?";
         $stmp = $conn->prepare($sql);
         $stmp->bind_param('i', $cart_id);
         $stmp->execute();
@@ -19,23 +17,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmp->close();
 
         if ($product_id) {
-            
-            $sql = "SELECT product_stock FROM product WHERE product_id=?";
+            $sql = "select product_stock from product where product_id=?";
             $stmp = $conn->prepare($sql);
             $stmp->bind_param('i', $product_id);
             $stmp->execute();
             $stmp->bind_result($product_stock);
             $stmp->fetch();
             $stmp->close();
-
             
             if ($quantity >= $product_stock) {
                 echo json_encode(["success" => false, "message" => "Cannot increase quantity beyond available stock!"]);
                 exit;
             }
-
-           
-            $sql = "UPDATE product SET product_stock = product_stock - 1 WHERE product_id=?";
+            $sql = "update product set product_stock = product_stock - 1 where product_id=?";
             $stmp = $conn->prepare($sql);
             $stmp->bind_param('i', $product_id);
             if ($stmp->execute()) {
@@ -47,8 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         if ($quantity >= 0) {
-           
-            $sql = "UPDATE cart SET quantity = quantity + 1 WHERE cart_id=?";
+           $sql = "update cart set quantity = quantity + 1 where cart_id=?";
             $stmp = $conn->prepare($sql);
             $stmp->bind_param('i', $cart_id);
             if ($stmp->execute()) {
@@ -58,8 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
             $stmp->close();
         } else {
-            
-            $sql = "DELETE FROM cart WHERE cart_id=?";
+            $sql = "delete from cart where cart_id=?";
             $stmp = $conn->prepare($sql);
             $stmp->bind_param('i', $cart_id);
             if ($stmp->execute()) {
@@ -73,5 +65,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $response = ["success" => false, "message" => "Invalid cart ID"];
     }
 }
-
 echo json_encode($response);

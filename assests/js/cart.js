@@ -16,17 +16,12 @@ function getcartdata() {
         url: "/fetch-cart.php",
         dataType: "json",
         success: function (response) {
-            console.log(response);
-
-            cartList.innerHTML = '';
-
+           cartList.innerHTML = '';
             if (response.length === 0) {
                 cartList.innerHTML = '<p class="text-center text-muted">No items found</p>';
                 return;
             }
             let total_item = response.length
-            console.log(total_item);
-
             const row = document.createElement('div');
             row.classList.add('row', 'g-3');
 
@@ -42,14 +37,11 @@ function getcartdata() {
                 col.innerHTML = `
                     <div class="card w-100 shadow-sm rounded-lg p-3">
                         <img src="/upload-image/${cart.product_image}" class="img-fluid rounded-3" alt="Product Image">
-                        
                         <div class="card-body text-center">
                             <h5 class="card-title fw-bold">${cart.product_name}</h5>
-
                              <p class="text-muted mb-2">
                                 <span class="fw-bold text-success">$price = ${discountedprice.toFixed(2)}</span>
                             </p>
-                            
                             <div class="d-flex justify-content-center align-items-center gap-2 my-2">
                                 <button class="btn btn-sm btn-outline-secondary px-2 decrement-item" data-cart-id="${cart.cart_id}">
                                     <i class="fas fa-minus"></i>
@@ -59,34 +51,17 @@ function getcartdata() {
                                     <i class="fas fa-plus"></i>
                                 </button>
                             </div>
-
                             <p class="text-muted mb-2">
                                 <span class="fw-bold text-success">$total price = ${price.toFixed(2)}</span>
                             </p>
-
                             <button class="btn btn-danger w-100 fw-bold py-2 remove_cart" data-cart-id="${cart.cart_id}">Remove</button>
                         </div>
                     </div>
                 `;
-
                 row.appendChild(col);
             });
-
             cartList.appendChild(row);
 
-            // const col1 = document.createElement('div');
-
-            // col1.classList.add('col-md-4', 'd-flex');
-            // col1.innerHTML = `
-            //     <div class="card w-100 shadow-sm rounded-lg p-3">
-            //         <p class="text-muted mb-2"> 
-            //             <span class="fw-bold text-success">$${totalprice.toFixed(2)}</span>
-            //         </p>
-            //     </div>
-            // `;
-            
-            // const paymentElement = document.querySelector('.payment');
-            // paymentElement.insertBefore(col1, paymentElement.firstChild);
             $('#numberofitem').html(total_item)
             $('#totalprice').html(totalprice.toFixed(2));
             $('#totalamount').html(totalprice.toFixed(2))
@@ -169,13 +144,10 @@ document.querySelector("form").addEventListener("submit", async function (e) {
     e.preventDefault();
 
     const stripe = Stripe("pk_test_51R91QA4cU8xLEUc1PfA6xs7gzRRiRp38peftdZ28SfGJm9I0ertnAl0q4d77JjVLZPFiBjgUoy9Gh7yB8cgAbDok00rR4pHhUe");
-
-  
     let totalprice = parseFloat($('#totalprice').text());
 
     try {
-       
-        let response = await fetch("../../checkout.php", {
+       let response = await fetch("../../checkout.php", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

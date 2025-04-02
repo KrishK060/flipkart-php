@@ -8,12 +8,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo json_encode(["success" => false, "message" => "Invalid input."]);
         exit;
     }
-
     $product_id = $_POST['product_id'];
     $user_id = $_SESSION['user_id'];
-
-   
-    $sql = "SELECT * FROM cart WHERE user_id = ? AND product_id = ?";
+    $sql = "select * from cart where user_id = ? and product_id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('ii', $user_id, $product_id);
     $stmt->execute();
@@ -23,9 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo json_encode(["success" => false, "message" => "Product already in cart"]);
         exit;
     }
-
-    
-    $sql = "INSERT INTO cart (user_id, product_id) VALUES (?, ?)";
+    $sql = "insert into cart (user_id, product_id) values (?, ?)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('ii', $user_id, $product_id);
 

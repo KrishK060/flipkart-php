@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $Username = htmlspecialchars($_POST["username"]);
     $password = htmlspecialchars($_POST["password"]);
     
-    $sql = "SELECT id, username, password, user_role FROM user WHERE username=?";
+    $sql = "select id, username, password, user_role from user where username=?";
     $stmt = $conn->prepare($sql);
 
     if (!$stmt) {

@@ -21,15 +21,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $upload_dir = "/home/krish.kalaria@simform.dom/Desktop/LMS-2/Flipkart-php/flipkart-php/upload-image/";
             $target_file = $upload_dir . basename($product_img);
             move_uploaded_file($_FILES['pimg']['tmp_name'], $target_file);
-
-           
-            $sql = "UPDATE product SET product_name=?, product_image=?, product_price=?, product_description=?, product_category=?, product_avalaible=?, discount=?, product_stock=? WHERE product_id=?";
+            $sql = "update product set product_name=?, product_image=?, product_price=?, product_description=?, product_category=?, product_avalaible=?, discount=?, product_stock=? where product_id=?";
 
             $stmp = $conn->prepare($sql);
             $stmp->bind_param('ssisisiii', $product_name, $product_img, $product_price, $product_description, $product_category, $product_avability, $product_discount,$product_stock, $product_id);
         } else {
           
-            $sql = "UPDATE product SET product_name=?, product_price=?, product_description=?, product_category=?, product_avalaible=?, discount=? ,product_stock=? WHERE product_id=?";
+            $sql = "update product set product_name=?, product_price=?, product_description=?, product_category=?, product_avalaible=?, discount=? ,product_stock=? where product_id=?";
             $stmp = $conn->prepare($sql);
             $stmp->bind_param('sisisiii', $product_name, $product_price, $product_description, $product_category, $product_avability, $product_discount,$product_stock, $product_id);
         }

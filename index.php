@@ -4,15 +4,11 @@ if (!isset($_SESSION["username"])) {
     header("location:/assests/html/login.html");
     exit();
 } else if (isset($_SESSION['username']) && $_SESSION["user_role"] == "user") {
-    echo "grevfv";
-    echo $_SESSION["user_role"];
-     echo $_SESSION["user_id"];
     echo '<script>
         window.onload = function() {
             document.querySelector(".admin").style.display = "none";
         };
       </script>';
-
 }
 ?>
 <!DOCTYPE html>
@@ -59,7 +55,7 @@ if (!isset($_SESSION["username"])) {
                     </div>
 
                     <div class="cart">
-                        <a href="/assests/html/cart.html">
+                        <a href="/cart.php">
                             <button class="btn" type="button">
                                 <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/header_cart-eed150.svg" alt="Cart">
                             </button>

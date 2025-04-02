@@ -1,128 +1,92 @@
-// let category = JSON.parse(localStorage.getItem('category')) || [];
-// let idForUpadate = "";
-// const searchInput = document.querySelector('#cinput');
-// searchInput.addEventListener('input', function () {
-//     const searchValue = searchInput.value.trim();
-//     if (searchValue !== "") {
-//         const filteredData = category.filter(item => item.id == searchValue || item.name.includes(searchValue));
-//         renderProducts(filteredData);
-//     } else {
-//         renderProducts(data);
-//     }
-// });
-// function renderProducts(filteredData = category) {
-//     const tbody = document.querySelector('#table tbody');
-//     tbody.innerHTML = '';
-//     if (filteredData.length === 0) {
-//         const row = document.createElement('tr');
-//         const cell = document.createElement('td');
-//         cell.colSpan = 6;
-//         cell.classList.add('text-center');
-//         cell.innerHTML = 'No product found';
-//         row.appendChild(cell);
-//         tbody.appendChild(row);
-//         return;
-//     }
-//     filteredData.forEach(item => {
-//         const row = document.createElement('tr');
-//         const idCell = document.createElement('td');
-//         idCell.innerHTML = item.id;
-//         const nameCell = document.createElement('td');
-//         nameCell.innerHTML = item.name;
-//         const actionCell = document.createElement('td');
-//         const editBtn = document.createElement('button');
-//         editBtn.classList.add('btn', 'btn-primary');
-//         editBtn.setAttribute('data-type', 'editdata');
-//         editBtn.setAttribute('data-id', item.id);
-//         editBtn.innerHTML = 'Edit';
-//         editBtn.addEventListener('click', () => editProduct(item.id));
-//         const deleteBtn = document.createElement('button');
-//         deleteBtn.classList.add('btn', 'btn-primary');
-//         deleteBtn.setAttribute('data-type', 'deldata');
-//         deleteBtn.setAttribute('data-id', item.id);
-//         deleteBtn.innerHTML = 'Delete';
-//         deleteBtn.addEventListener('click', () => deleteProduct(item.id));
-//         actionCell.appendChild(editBtn);
-//         actionCell.appendChild(deleteBtn);
-//         row.appendChild(idCell);
-//         row.appendChild(nameCell);
-//         row.appendChild(actionCell);
-//         tbody.appendChild(row);
-//     });
-// }
-// renderProducts();
+$(document).ready(function () {
+    getdata();
+});
+function getdata() {
+    $.ajax({
+        type: "GET",
+        url: "/fetch-category.php",
+        success: function (response) {
+            $.each(response, function (key, value) {
+                $('#table tbody').append('<tr>' +
+                    '<td class="stud_id">' + value['category_id'] + '</td>\
+                    <td>'+ value['category_name'] + '</td>\
+                    <td>\
+                         <a href="#" class="btn btn-sm btn-primary edit_btn" data-id="' + value['category_id'] + '" data-name="' + value['category_name'] + '">EDIT</a>\
+                        <a href="#" class="btn btn-sm btn-danger delete_btn" data-id="' + value['category_id'] + '">DELETE</a>\
+                    </td>\
+                </tr>');
+            })
+            $(".edit_btn").click(updatedata);
+            $(".delete_btn").click(deletecategory);
+        },
+        error: function (xhr, status, error) {
+            console.error("AJAX Error:", status, error);
+            console.error("Response Text:", xhr.responseText);
+            alert("Error fetching products: " + error);
+        }
+    });
+}
 
-// function editProduct(id) {
-//     document.getElementById('form').dataset.form = "edit";
-//     let product = category.find(item => item.id == id);
-//     idForUpadate = id;
-//     document.getElementById('cname').value = product.name;
-// }
+function updatedata(event) {
+    event.preventDefault();
 
-// let isAscending = true;
-// document.querySelectorAll(".btn").forEach((button) => {
-//     button.addEventListener("click", () => {
-//         switch (button.dataset.type) {
-//             case "editdata":
-//                 const ProductID = button.dataset.id;
-//                 document.getElementById("btn1").innerHTML = `edit`;
-//                 editProduct(ProductID);
-//                 break;
-//             case "deldata":
-//                 const productId = button.dataset.id;
-//                 deleteProduct(productId);
-//                 break;
-//         }
-//     });
-// });
+    var new_category_id = $(this).data('id');
+    var current_category_name = $(this).data('name');
 
-// function deleteProduct(id) {
-//     const productIndex = category.findIndex(item => item.id == id);
-//     if (productIndex !== -1) {
-//         category.splice(productIndex, 1);
-//         localStorage.setItem('category', JSON.stringify(category));
-//         renderProducts();
-//     }
-// }
+    console.log("Category ID:", new_category_id);
+    console.log("Current Name:", current_category_name);
 
-// function addData() {
-//     let name = document.getElementById("cname").value;
-//     let id = parseInt((category.length > 0) ? category[category.length - 1].id + 1 : 1);
-//     let data1 = {
-//         id,
-//         name,
-//     };
-//     category.push(data1);
-//     localStorage.setItem('category', JSON.stringify(category));
-//     renderProducts();
-// }
+    let categoryInput = document.getElementById('cname');
+    categoryInput.value = current_category_name;
 
-// function editData() {
-   
-//     const updatedName = document.getElementById("cname").value;
-//     const updatedProduct = {
-//         id: parseInt(idForUpadate),
-//         name: updatedName,
-//     };
-//     const productIndex = category.findIndex(item => item.id == parseInt(idForUpadate));
-//     if (productIndex !== -1) {
-//         category[productIndex] = updatedProduct;
-//     }
-//     localStorage.setItem('category', JSON.stringify(category));
-//     document.getElementById("btn1").innerHTML = `Add Category`;
-//     renderProducts();
-// }
+    $("#form").off("submit").on("submit", function (e) {
+        e.preventDefault();
 
-// let form = document.querySelector("#form");
-// form.addEventListener("submit", (event) => {
-//     event.preventDefault();
+        let new_category_name = categoryInput.value.trim();
 
-//     if (form.dataset.form == "add") {
-//         addData();
-//     } else {
-//         editData();
-        
-//     }
-//          document.getElementById("cname").value = ""
-//          form.dataset.form = "add" 
-// });
+        if (!new_category_name) {
+            alert("Update cancelled or invalid input.");
+            return;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/update-category.php",
+            data: { category_id: new_category_id, cname: new_category_name },
+            dataType: "json",
+            success: function (response) {
+                console.log("Server Response:", response);
+                alert(response.message);
+
+                $('#table tbody').empty();
+                getdata();
+            },
+            error: function (xhr, status, error) {
+                console.error("AJAX Error:", status, error);
+                console.error("Response Text:", xhr.responseText);
+                alert("Error updating category: " + error);
+            }
+        });
+    });
+}
+
+function deletecategory(event) {
+    event.preventDefault();
+    var del_category_id = $(this).data('id');
+    console.log(del_category_id)
+    $.ajax({
+        type: "POST",
+        url: "/delete-category.php",
+        data: { category_id: del_category_id },
+        dataType: "json",
+        success: function (response) {
+            console.log(response);
+        },
+        error: function (xhr, status, error) {
+            console.error("AJAX Error:", status, error);
+            console.error("Response Text:", xhr.responseText);
+            alert("Error updating category: " + error);
+        }
+    });
+}
+
