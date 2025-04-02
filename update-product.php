@@ -1,16 +1,13 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
 require 'config/connection.php';
-
+require 'error.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $product_id = isset($_POST["product_id"]) ? intval($_POST["product_id"]) : 0;
     $product_name = isset($_POST["pname"]) ? trim($_POST["pname"]) : "";
     $product_img = isset($_FILES["pimg"]['name']) ? trim($_FILES["pimg"]['name']) : "";
     $product_price = isset($_POST["pprice"]) ? trim($_POST["pprice"]) : "";
     $product_description = isset($_POST["ptext"]) ? trim($_POST["ptext"]) : "";
-    $product_category = isset($_POST["category"]) ? trim($_POST["category"]) : "";
+    $product_category = isset($_POST["pcategory"]) ? trim($_POST["pcategory"]) : "";
     $product_avability = isset($_POST["avability"]) ? trim($_POST["avability"]) : "";
     $product_discount = isset($_POST["pdiscount"]) ? intval($_POST["pdiscount"]) : 0;
     $product_stock = isset($_POST["pstock"]) ? intval($_POST["pstock"]) : 0;

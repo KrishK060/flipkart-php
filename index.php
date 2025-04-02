@@ -1,15 +1,11 @@
 <?php
+require 'error.php';
+
 session_start();
 if (!isset($_SESSION["username"])) {
     header("location:/assests/html/login.html");
     exit();
-} else if (isset($_SESSION['username']) && $_SESSION["user_role"] == "user") {
-    echo '<script>
-        window.onload = function() {
-            document.querySelector(".admin").style.display = "none";
-        };
-      </script>';
-}
+} 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,7 +51,7 @@ if (!isset($_SESSION["username"])) {
                     </div>
 
                     <div class="cart">
-                        <a href="/cart.php">
+                        <a href="cart.php">
                             <button class="btn" type="button">
                                 <img src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/header_cart-eed150.svg" alt="Cart">
                             </button>
@@ -70,7 +66,9 @@ if (!isset($_SESSION["username"])) {
                         </button>
                         <span class="dn3">Customer</span>
                     </div>
-                    <a class="btn btn-primary ms-2 admin" href="/assests/html/index.html" role="button">admin panel</a>
+                    <?php if (isset($_SESSION['username']) && $_SESSION["user_role"] == "admin") {
+                            echo '   <a class="btn btn-primary ms-2 admin" href="/assests/html/admin.html" role="button">admin panel</a>';
+                    } ?>
                     <a href="/logout.php" class="btn btn-danger mr-2" onclick="return confirm('Are you sure you want to log out?')">Logout</a>
                 </div>
             </nav>

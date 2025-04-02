@@ -16,7 +16,7 @@ function getcartdata() {
         url: "/fetch-cart.php",
         dataType: "json",
         success: function (response) {
-           cartList.innerHTML = '';
+            cartList.innerHTML = '';
             if (response.length === 0) {
                 cartList.innerHTML = '<p class="text-center text-muted">No items found</p>';
                 return;
@@ -27,7 +27,7 @@ function getcartdata() {
 
             let totalprice = 0;
             response.forEach(cart => {
-                let discountedprice =cart.product_price - (cart.product_price * cart.discount) / 100;
+                let discountedprice = cart.product_price - (cart.product_price * cart.discount) / 100;
                 let price = cart.quantity * (cart.product_price - (cart.product_price * cart.discount) / 100);
                 totalprice += price;
 
@@ -79,7 +79,6 @@ function getcartdata() {
 }
 
 function deletecart(event) {
-    event.preventDefault();
     let del_cart_id = $(this).data('cart-id');
     $.ajax({
         type: "POST",
@@ -87,7 +86,7 @@ function deletecart(event) {
         data: { cart_id: del_cart_id },
         dataType: "json",
         success: function (response) {
-            getcartdata(); 
+            getcartdata();
         },
         error: function (xhr, status, error) {
             console.error("AJAX Error:", status, error);
@@ -97,26 +96,28 @@ function deletecart(event) {
 }
 
 function decrementitem(event) {
-    event.preventDefault();
     let decrement_id = $(this).data('cart-id');
+
     $.ajax({
         type: "POST",
         url: "/decrement-item.php",
         data: { cart_id: decrement_id },
         dataType: "json",
         success: function (response) {
-            if (response.success) {
-                getcartdata(); 
-            } else {
-                alert(response.message);  
-            }
-        },
+            console.log(response);
+                if (response.cartDetail.quantity > 0) { 
+                    getcartdata();
+                } else {
+                    deletecart(decrement_id);
+                }
+            },
         error: function (xhr, status, error) {
             console.error("AJAX Error:", status, error);
             alert("Error decrementing item in cart: " + error);
         }
     });
 }
+
 
 function incrementitem(event) {
     event.preventDefault();
@@ -128,9 +129,9 @@ function incrementitem(event) {
         dataType: "json",
         success: function (response) {
             if (response.success) {
-                getcartdata();  
+                getcartdata();
             } else {
-                alert(response.message);  
+                alert(response.message);
             }
         },
         error: function (xhr, status, error) {
@@ -147,7 +148,7 @@ document.querySelector("form").addEventListener("submit", async function (e) {
     let totalprice = parseFloat($('#totalprice').text());
 
     try {
-       let response = await fetch("../../checkout.php", {
+        let response = await fetch("../../checkout.php", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -155,10 +156,10 @@ document.querySelector("form").addEventListener("submit", async function (e) {
             body: JSON.stringify({ totalAmount: totalprice })
         });
 
-        let text = await response.text(); 
+        let text = await response.text();
 
         try {
-            let session = JSON.parse(text); 
+            let session = JSON.parse(text);
             if (session.id) {
                 stripe.redirectToCheckout({ sessionId: session.id });
             } else {

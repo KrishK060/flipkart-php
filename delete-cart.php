@@ -1,23 +1,29 @@
 <?php
 require 'config/connection.php';
 header("Content-Type: application/json");
-if($_SERVER['REQUEST_METHOD']=='POST'){
-    $cart_id = isset($_POST["cart_id"]) ? intval($_POST["cart_id"]) : 0;
-    if($cart_id>0){
-        $sql = "delete from cart where cart_id =?";
-        $stmp=$conn->prepare($sql);
-        $stmp->bind_param('i',$cart_id);
 
-        if ($stmp->execute()) {
-            $response = ["success" => true, "message" => "cart deleted successfully"];
-        } else {
-            $response = ["success" => false, "message" => "Failed to delete cart"];
-        }
-        $stmp->close();
-    }else {
-        $response = ["success" => false, "message" => "Invalid input"];
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (!isset($_POST["cart_id"])) {
+        echo json_encode(["success" => false, "message" => "cart_id is required"]);
+        exit();
     }
+
+    $cart_id = intval($_POST["cart_id"]);
+
+    $sql = "delete from cart where cart_id = ?";
+    $stmp = $conn->prepare($sql);
+    $stmp->bind_param('i', $cart_id);
+
+    if ($stmp->execute()) {
+        $response = ["success" => true, "message" => "Cart deleted successfully"];
+    } else {
+        $response = ["success" => false, "message" => "Failed to delete cart"];
+    }
+
+    $stmp->close();
 } else {
     $response = ["success" => false, "message" => "Invalid request"];
 }
+
 echo json_encode($response);
+?>

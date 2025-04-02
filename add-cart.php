@@ -1,7 +1,8 @@
 <?php
 require 'config/connection.php';
+// require 'index.php';
 session_start();
-header('Content-Type: application/json'); 
+header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!isset($_POST['product_id']) || !isset($_SESSION['user_id'])) {
@@ -32,5 +33,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $stmt->close();
     $conn->close();
-}
-?>
+} 
+

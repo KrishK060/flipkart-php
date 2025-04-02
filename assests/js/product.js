@@ -5,7 +5,7 @@ $(document).ready(function () {
 function get_cetagory_data() {
     $.ajax({
         type: "GET",
-        url: "/fetch-product.php",
+        url: "/fetch-category.php",
         dataType: "json",
         success: function (response) {
             $('#category').empty();
@@ -113,7 +113,7 @@ function updatedata(event) {
         formData.append("pname", new_product_name);
         formData.append("pprice", new_product_price);
         formData.append("ptext", new_product_description);
-        formData.append("category", new_product_category);
+        formData.append("pcategory", new_product_category);
         formData.append("avability",new_product_avability);
         formData.append("pdiscount",new_product_discount)
         formData.append("pstock",new_product_stock);

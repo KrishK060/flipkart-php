@@ -1,8 +1,6 @@
 <?php
 require 'config/connection.php';
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
+require 'error.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
@@ -10,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $product_image = basename($_FILES["pimg"]['name']); 
     $product_price = htmlspecialchars($_POST["pprice"]);
     $product_description = htmlspecialchars($_POST["ptext"]);
-    $product_category = htmlspecialchars($_POST["category"]);
+    $product_category = htmlspecialchars($_POST["pcategory"]);
     $product_avability = htmlspecialchars($_POST["avability"]);
     $product_discount = htmlspecialchars($_POST["pdiscount"]);
     $product_stock = htmlspecialchars($_POST['pstock']);
@@ -21,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmp->bind_param('ssisisii', $product_name, $product_image, $product_price, $product_description, $product_category,$product_avability,$product_discount,$product_stock);
 
     if ($stmp->execute()) {
-        move_uploaded_file($_FILES['pimg']['tmp_name'], "/home/krish.kalaria@simform.dom/Desktop/LMS-2/Flipkart-php/flipkart-php/upload-image/" . $_FILES['pimg']['name']);
+        move_uploaded_file($_FILES['pimg']['tmp_name'], "upload-image" . $_FILES['pimg']['name']);
         echo json_encode(["success" => true, "message" => "Product added successfully"]);
         header("location:/assests/html/product.html");
     } else {

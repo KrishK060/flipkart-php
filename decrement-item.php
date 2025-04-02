@@ -18,35 +18,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         $stmp->close();
 
-    $sql = "select product_id,quantity from cart where cart_id=?";
-    $stmp=$conn->prepare($sql);
-    $stmp->bind_param('i', $cart_id);
-    $stmp->execute();
-    $stmp->bind_result($product_id,$quantity);
-    $stmp->fetch();
-    $stmp->close();
+        $sql = "select product_id,quantity from cart where cart_id=?";
+        $stmp = $conn->prepare($sql);
+        $stmp->bind_param('i', $cart_id);
+        $stmp->execute();
+        $stmp->bind_result($product_id, $quantity);
+        $stmp->fetch();
+        $stmp->close();
 
-        if ($quantity > 1) {
-            $sql = "update cart set quantity = quantity - 1 where cart_id=?";
-            $stmp = $conn->prepare($sql);
-            $stmp->bind_param('i', $cart_id);
-            if ($stmp->execute()) {
-                $response = ["success" => true, "message" => "Cart quantity updated successfully"];
-            } else {
-                $response = ["success" => false, "message" => "Failed to update cart quantity"];
-            }
-            $stmp->close();
+        $sql = "update cart set quantity = quantity - 1 where cart_id=?";
+        $stmp = $conn->prepare($sql);
+        $stmp->bind_param('i', $cart_id);
+        $stmp->execute();
+        $sql = "select * from cart where cart_id=?";
+
+        $stmp2 = $conn->prepare($sql);
+        $stmp2->bind_param('i', $cart_id);
+        $stmp2->execute();
+        $result = $stmp2->get_result();
+        $row = $result->fetch_assoc();
+        //return cart detail;
+        if ($row) {
+            $response = [
+                "success" => true,
+                "message" => "Cart quantity updated successfully",
+                "cartDetail" => $row
+            ];
         } else {
-            $sql = "delete from cart where cart_id=?";
-            $stmp = $conn->prepare($sql);
-            $stmp->bind_param('i', $cart_id);
-            if ($stmp->execute()) {
-                $response = ["success" => true, "message" => "Cart removed successfully"];
-            } else {
-                $response = ["success" => false, "message" => "Failed to remove cart"];
-            }
-            $stmp->close();
+            $response = ["success" => false, "message" => "Failed to update cart quantity"];
         }
+        $stmp->close();
     } else {
         $response = ["success" => false, "message" => "Invalid cart ID"];
     }

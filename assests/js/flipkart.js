@@ -11,7 +11,7 @@ function fetchProductData() {
 
     $.ajax({
         type: "GET",
-        url: "/fetch-product3.php",
+        url: "/fetch-product-homepage.php",
         dataType: "json",
         success: function (response) {
             productList.innerHTML = '';
@@ -82,7 +82,6 @@ function fetchProductData() {
 function addtocart(event) {
     event.preventDefault();
     let current_product_id = $(this).data('product-id');
-    console.log(current_product_id)
     $.ajax({
         type: "POST",
         url: "/add-cart.php",

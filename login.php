@@ -6,7 +6,7 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $Username = htmlspecialchars($_POST["username"]);
+    $username = htmlspecialchars($_POST["username"]);
     $password = htmlspecialchars($_POST["password"]);
     
     $sql = "select id, username, password, user_role from user where username=?";
@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Error in SQL query: " . $conn->error);
     }
 
-    $stmt->bind_param("s", $Username);
+    $stmt->bind_param("s", $username);
     $stmt->execute();
     $stmt->store_result();
 
@@ -35,11 +35,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['user_role'] = $user['role'];
 
         if (password_verify($password, $db_password)) {
-            if ($user['role'] === 'admin') {
+            if ($user['role'] === 'admin' || $user['role'] === 'user') {
                 header("Location: /index.php");  
-            } else {
-                header("Location: /index.php");  
-            }
+            } 
             exit();
         } else {
             echo "Invalid password.";

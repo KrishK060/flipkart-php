@@ -73,7 +73,6 @@ function updatedata(event) {
 function deletecategory(event) {
     event.preventDefault();
     var del_category_id = $(this).data('id');
-    console.log(del_category_id)
     $.ajax({
         type: "POST",
         url: "/delete-category.php",

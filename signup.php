@@ -3,7 +3,7 @@ require 'config/connection.php';
 if($_SERVER["REQUEST_METHOD"]=="POST"){
     $email = htmlspecialchars($_POST["email"]);
     $username = htmlspecialchars($_POST["username"]);
-    $hash_password = password_hash($_POST["password"], PASSWORD_BCRYPT);
+    $hash_password = password_hash(htmlspecialchars($_POST["password"]), PASSWORD_BCRYPT);
 
     $confirm_password = htmlspecialchars($_POST["confirm_password"]);
     $dob = $_POST["dob"];

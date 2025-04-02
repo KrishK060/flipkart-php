@@ -15,11 +15,7 @@ $stmt->bind_param('i', $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
 
-$cart = [];
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        array_push($cart, $row);
-    }
-}
+$cart = $result->fetch_all(MYSQLI_ASSOC);
+
 echo json_encode($cart);
 exit();

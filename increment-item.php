@@ -50,17 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $response = ["success" => false, "message" => "Failed to update cart quantity"];
             }
             $stmp->close();
-        } else {
-            $sql = "delete from cart where cart_id=?";
-            $stmp = $conn->prepare($sql);
-            $stmp->bind_param('i', $cart_id);
-            if ($stmp->execute()) {
-                $response = ["success" => true, "message" => "Cart removed successfully"];
-            } else {
-                $response = ["success" => false, "message" => "Failed to remove cart"];
-            }
-            $stmp->close();
-        }
+        } 
     } else {
         $response = ["success" => false, "message" => "Invalid cart ID"];
     }
