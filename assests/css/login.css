@@ -13,7 +13,7 @@ body {
     background-image: linear-gradient(to right, #00F260, #0575E6);
 }
 
-#signin:hover {
+#signin-btn:hover {
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
@@ -31,7 +31,6 @@ body {
     width: 500px;
     padding: 80px;
     border: 5px solid black;
-    /* box-shadow: 10px 10px 5px rgba(63, 83, 177, 0.863); */
 }
 
 .inputs {
@@ -62,8 +61,7 @@ body {
     width: 250px;
 }
 
-#signin {
-   
+#signin-btn {
     position: relative;
     animation-duration: 4s;
     animation-timing-function: ease-in-out;
@@ -115,11 +113,6 @@ body {
 
     50% {
         left: 40px;
-        top: 0px
-    }
-
-    100% {
-        left: 0px;
         top: 0px
     }
 }

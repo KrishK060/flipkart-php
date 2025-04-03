@@ -1,61 +1,15 @@
-body{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: whitesmoke;
-    margin: 0;
-    background-image: linear-gradient(to right, #5433ff,#20bdff, #a5fecb);
+body {
+    background-image: linear-gradient(to right, #5433ff, #20bdff, #a5fecb);
 }
 
-.loginpage{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    background-color: rgb(107, 156, 156);
-    height: 500px;
-    width: 500px;
+.loginpage {
     padding: 150px;
+}
+
+#signup {
     border: 5px solid black;
 }
 
-.inputs input{
-    padding: 10px;
-    display: inline-block;
-}
-
-#signup{
-    border: 5px solid black;
-}
-
-#Signin{
-    position:relative;
-    animation-duration:4s;
-    animation-timing-function: ease-in-out;
+#sign-in {
     animation-iteration-count: infinite;
-    animation-name: example1;
 }
-@keyframes example1 {
-    0%{left:0px ; top:0px}
-    25%{left:-20px;top:0px}
-    50%{left:-40px;top:0px}
-    100%{left:0px;top:0px}    
-}
-
-@keyframes example {
-    0%{left:0px ; top:0px}
-    25%{left:20px;top:0px}
-    50%{left:40px;top:0px}
-    100%{left:0px;top:0px}    
-}
-
-.userinputs input{
-    outline: none;
-    background-color: inherit;
-    border: none;
-    padding: 0;
-}
-
-
-

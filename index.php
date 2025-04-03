@@ -5,7 +5,7 @@ session_start();
 if (!isset($_SESSION["username"])) {
     header("location:/assests/html/login.html");
     exit();
-} 
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,7 +67,7 @@ if (!isset($_SESSION["username"])) {
                         <span class="dn3">Customer</span>
                     </div>
                     <?php if (isset($_SESSION['username']) && $_SESSION["user_role"] == "admin") {
-                            echo '   <a class="btn btn-primary ms-2 admin" href="/assests/html/admin.html" role="button">admin panel</a>';
+                        echo '   <a class="btn btn-primary ms-2 admin" href="/assests/html/admin.html" role="button">admin panel</a>';
                     } ?>
                     <a href="/logout.php" class="btn btn-danger mr-2" onclick="return confirm('Are you sure you want to log out?')">Logout</a>
                 </div>
@@ -198,7 +198,7 @@ if (!isset($_SESSION["username"])) {
         </div>
         <div class="container bg-light mt-3 p-2">
             <div class="d-flex">
-                <div class="row dn1">
+                <div class="row w-100">
                     <div class="d-flex instruments2">
                         <div class="cards-wrapper">
                             <div class="card">

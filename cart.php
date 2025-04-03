@@ -1,6 +1,6 @@
 <?php
 session_start();
-if($_SESSION["user_role"] == "user") {
+if ($_SESSION["user_role"] == "user") {
     echo '<script>
         window.onload = function() {
             document.querySelector(".admin").style.display = "none";
@@ -53,7 +53,7 @@ if($_SESSION["user_role"] == "user") {
 
                     <div class="cart">
                         <a href="/index.php">
-                           Home Page
+                            Home Page
                         </a>
                     </div>
 
@@ -85,7 +85,7 @@ if($_SESSION["user_role"] == "user") {
                     <div class="card w-100 shadow-sm rounded-lg p-3">
                         <div class="card-body">
                             <p class="text-muted mb-2">
-                                Total Price (<span id="numberofitem"></span> items) = 
+                                Total Price (<span id="numberofitem"></span> items) =
                                 <span class="fw-bold text-success" id="totalprice"></span>
                             </p>
                             <p class="text-muted mb-2">
@@ -100,7 +100,7 @@ if($_SESSION["user_role"] == "user") {
                     <form action="checkout.php" method="POST">
                         <button type="submit" class="btn btn-warning btn-block btn-lg">Proceed to Pay</button>
                     </form>
-                    
+
 
                 </div>
             </div>

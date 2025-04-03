@@ -14,27 +14,30 @@
 
 .navbar {
     display: flex;
-    justify-content: space-between;  /* Spread out the navbar items */
-    align-items: center; /* Vertically align the items */
-    padding: 10px 0;  /* Add some padding */
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+
 }
 
 .navbar .parent-head {
     display: flex;
-    justify-content: space-between;  /* Spread out the items */
-    align-items: center;  /* Vertically align */
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
 }
 
 .navbar .input-group {
     flex-grow: 1;
-    max-width: 500px;  /* Limit max width of the search input */
+    max-width: 500px;
 }
 
-.navbar .cart, .navbar .customer {
+.navbar .cart,
+.navbar .customer {
     display: flex;
-    align-items: center;  /* Align icon and text vertically */
+    align-items: center;
 }
+
 body {
     background-color: #f1f1f1;
 }
@@ -122,16 +125,11 @@ body {
 
 .ct {
     text-align: center;
-
 }
 
 .dn {
     display: block;
     width: 20%;
-}
-
-.dn1 {
-    width: 100%;
 }
 
 .instruments {
@@ -149,7 +147,6 @@ body {
 
 .p1-item {
     min-height: 130px;
-
     min-width: 130px;
 
 }
@@ -161,11 +158,9 @@ body {
 }
 
 @media (max-width:992px) {
-
     .dn,.dn3 {
         display: none;
     }
-    
 }
 
 @media (max-width: 768px) {
