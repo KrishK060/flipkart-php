@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (password_verify($password, $db_password)) {
             if ($user['role'] === 'admin' || $user['role'] === 'user') {
-                header("Location: /index.php");  
+                header("Location: index.php");  
             } 
             exit();
         } else {
