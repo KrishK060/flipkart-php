@@ -43,7 +43,7 @@ if (!isset($_SESSION["username"])) {
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">My profile</a></li>
                             <li><a class="dropdown-item" href="#">flipkart plus zone</a></li>
-                            <li><a class="dropdown-item" href="#">orders</a></li>
+                            <li><a class="dropdown-item" href="assests/html/order.html" onclick="myFunction()">orders</a></li>
                             <li><a class="dropdown-item" href="#">whishlist</a></li>
                             <li><a class="dropdown-item" href="#">Rewards</a></li>
                             <li><a class="dropdown-item" href="#">Giftcard</a></li>

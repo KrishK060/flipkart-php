@@ -61,6 +61,17 @@ foreach ($products as $product) {
 }
 
 $orderlist_stmt->close();
-$conn->close();
+
+$sql = "delete from cart where user_id = ?";
+$stmp = $conn->prepare($sql);
+$stmp->bind_param('i', $user_id);
+
+if ($stmp->execute()) {
+    $response = ["success" => true, "message" => "Cart deleted successfully"];
+} else {
+    $response = ["success" => false, "message" => "Failed to delete cart"];
+}
+
+$stmp->close();
 
 echo "<p>Order and products saved successfully.</p>";
