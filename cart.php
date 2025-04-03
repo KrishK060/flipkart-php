@@ -1,5 +1,4 @@
 <?php
-require 'validation.php';
 session_start();
 if($_SESSION["user_role"] == "user") {
     echo '<script>
