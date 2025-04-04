@@ -3,7 +3,7 @@ require 'error.php';
 
 session_start();
 if (!isset($_SESSION["username"])) {
-    header("location:/assests/html/login.html");
+    header("location:/assests/html/signin.php");
     exit();
 }
 ?>

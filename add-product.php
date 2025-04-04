@@ -17,7 +17,7 @@ $stmp = $conn->prepare($sql);
 $stmp->bind_param('ssisisii', $product_name, $product_image, $product_price, $product_description, $product_category, $product_avability, $product_discount, $product_stock);
 
 if ($stmp->execute()) {
-    move_uploaded_file($_FILES['pimg']['tmp_name'], "upload-image" . $_FILES['pimg']['name']);
+    move_uploaded_file($_FILES['pimg']['tmp_name'], "upload-image/" . $_FILES['pimg']['name']);
     echo json_encode(["success" => true, "message" => "Product added successfully"]);
     header("location:/assests/html/product.html");
 } else {
