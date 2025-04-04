@@ -98,6 +98,27 @@ $stmt_order->bind_param("i", $order_id);
 $stmt_order->execute();
 $result = $stmt_order->get_result();
 
+// $username = $_SESSION['username'];
+// $sql = 'select email from user where $username=?';
+// $stmt_email = $conn->prepare($sql);
+// $stmt_email->bind_param('s',$username);
+// $stmt_email->execute();
+// $email_result = $stmt_email->get_result();
+$username = $_SESSION['username'];
+$sql = 'SELECT email FROM user WHERE username = ?';
+$stmt_email = $conn->prepare($sql);
+$stmt_email->bind_param('s', $username);
+$stmt_email->execute();
+$email_result = $stmt_email->get_result();
+
+if ($email_result && $email_result->num_rows > 0) {
+    $row = $email_result->fetch_assoc();
+    $user_email = $row['email'];
+} else {
+    die("User email not found.");
+}
+
+
 $order_items = [];
 $order_info = null;
 
@@ -110,7 +131,7 @@ while ($row = $result->fetch_assoc()) {
 
 $stmt_order->close();
 
-
+$transaction_id =  $session->payment_intent;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -127,12 +148,16 @@ try {
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port = 587;
 
-    $mail->setFrom('specialagent0601@gmail.com', 'Special Agent');
-    $mail->addAddress('kabirnavadia580@gmail.com');
+    // $mail->setFrom('specialagent0601@gmail.com', 'Special Agent');
+    // $mail->addAddress($user_email);
 
+    // $mail->isHTML(true);
+    // $mail->Subject = '🧾 Order Confirmation - Order #' . $order_info['order_id'];
+    $mail->setFrom('specialagent0601@gmail.com', 'you account is now under surveillance of special agency');
+    $mail->addAddress($user_email);
     $mail->isHTML(true);
-    $mail->Subject = '🧾 Order Confirmation - Order #' . $order_info['order_id'];
-
+    $mail->AltBody = "Your order #$order_id was placed successfully. Amount: ₹$amount. Transaction ID: $transactionId.";
+    
     $product_rows = "";
     foreach ($order_items as $item) {
         $product_rows .= "<tr>
@@ -142,11 +167,12 @@ try {
         </tr>";
     }
 
-    $username = "krish";
+    $username = $user_name;
     $order_id = $order_info['order_id'];
     $txn_id = $order_info['transaction_timestamp'];
     $amount = $order_info['total_amount'];
     $order_date = date("d-m-Y", strtotime($txn_id));
+    $transactionId = $paymentid;
 
     $mail->Body = "
     <html>
@@ -168,7 +194,7 @@ try {
         <p><strong>Order ID:</strong> $order_id</p>
         <p><strong>Transaction Date:</strong> $order_date</p>
         <p><strong>Amount Paid:</strong> ₹$amount</p>
-
+        <p><strong>TransactionID:</strong>$transactionId</p>
         <table>
           <tr>
             <th>Product</th>
@@ -179,8 +205,8 @@ try {
         </table>
 
         <div class='footer'>
-          <p>Need help? Email us at support@flipkart-clone.com</p>
-          <p>&copy; " . date("Y") . " Flipkart Clone</p>
+          <p>Need help? Email us at support@specialagency.com</p>
+          <p>&copy; " . date("Y") . " special agency</p>
         </div>
       </div>
     </body>
