@@ -25,7 +25,7 @@ if ($stmp->execute()) {
     move_uploaded_file($_FILES['pimg']['tmp_name'], $upload_path);
 
     echo json_encode(["success" => true, "message" => "Product added successfully"]);
-    header("location:/assests/html/product.html");
+    header("location:/assests/html/product.php");
 } else {
     echo json_encode(["success" => false, "message" => "Failed to add product"]);
 }

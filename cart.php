@@ -1,12 +1,20 @@
 <?php
 session_start();
-if ($_SESSION["user_role"] == "user") {
+
+if (!isset($_SESSION["username"])) {
+    header("location: signin.php");
+    exit();
+}
+
+if ($_SESSION["user_role"] === "user") {
     echo '<script>
         window.onload = function() {
-            document.querySelector(".admin").style.display = "none";
+            const adminElements = document.querySelectorAll(".admin");
+            adminElements.forEach(el => el.style.display = "none");
         };
-      </script>';
+    </script>';
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,7 +72,7 @@ if ($_SESSION["user_role"] == "user") {
                         </button>
                         <span class="dn3">Customer</span>
                     </div>
-                    <a class="btn btn-primary ms-2 admin" href="/assests/html/index.html" role="button">admin panel</a>
+                    <a class="btn btn-primary ms-2 admin" href="/assests/html/admin.php" role="button">admin panel</a>
                     <a href="/logout.php" class="btn btn-danger mr-2"
                         onclick="return confirm('Are you sure you want to log out?')">Logout</a>
                 </div>

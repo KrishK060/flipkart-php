@@ -1,3 +1,14 @@
+<?php
+require '../../error.php';
+
+session_start();
+
+if (!isset($_SESSION["username"]) || $_SESSION["user_role"] !== "admin") {
+    header("location: signin.php");
+    exit();
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,10 +28,10 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/assests/html/admin.html">Home</a>
+                        <a class="nav-link" aria-current="page" href="/assests/html/admin.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/assests/html/product.html">Product crud</a>
+                        <a class="nav-link" href="/assests/html/product.php">Product crud</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/index.php">flipkart</a>

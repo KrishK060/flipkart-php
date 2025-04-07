@@ -7,7 +7,7 @@ $stmp = $conn->prepare($sql);
 $stmp->bind_param('s', $category_name);
 if ($stmp->execute()) {
    echo "category added succesfully";
-   header("location:/assests/html/category.html");
+   header("location:/assests/html/category.php");
    exit();
 } else {
    echo "category doesnt added";
