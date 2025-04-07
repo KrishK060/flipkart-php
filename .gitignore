@@ -1,3 +1,4 @@
-/vendor/
-.vscode/
+vendor/*
+.vscode/*
 .env
+upload-image/*
