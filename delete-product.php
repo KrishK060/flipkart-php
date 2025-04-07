@@ -3,8 +3,12 @@ require 'config/connection.php';
 require 'validation.php';
 header("Content-Type: application/json");
 
-$product_id = isset($_POST["product_id"]) ? intval($_POST["product_id"]) : 0;
-if ($product_id > 0) {
+if(!isset($_POST["product_id"])){
+    echo json_encode(["success" => false, "message" => "product_id is required"]);
+    exit();
+}
+$product_id = intval($_POST["product_id"]);
+
     $sql = "delete from product where product_id =?";
     $stmp = $conn->prepare($sql);
     $stmp->bind_param('i', $product_id);
@@ -15,8 +19,6 @@ if ($product_id > 0) {
         $response = ["success" => false, "message" => "Failed to delete product"];
     }
     $stmp->close();
-} else {
-    $response = ["success" => false, "message" => "Invalid input"];
-}
+
 
 echo json_encode($response);

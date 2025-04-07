@@ -35,7 +35,7 @@ if(empty($_POST["phone_number"])){
     echo json_encode(["success" => false, "message" => "phone number is required"]);
 }else{
     $phone_number = htmlspecialchars($_POST["phone_number"]);
-    if(!preg_match("/^[8-9]{1}[0-9]{9}$/",$phone_number)){
+    if(!preg_match("/^[0-9]{1}[0-9]{9}$/",$phone_number)){
         echo json_encode(["success" => false, "message" => "enter correct 10 digit phone number"]);
     }
 }

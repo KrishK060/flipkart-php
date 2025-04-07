@@ -1,7 +1,6 @@
 <?php
 require 'config/connection.php';
 require 'validation.php';
-// require 'index.php';
 session_start();
 header('Content-Type: application/json');
 

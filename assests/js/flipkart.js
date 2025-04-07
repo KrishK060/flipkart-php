@@ -23,32 +23,32 @@ function fetchProductData() {
             }
 
             response.forEach(product => {
-                if(product.product_avalaible == "avalaible"){
+                if (product.product_avalaible == "avalaible") {
                     let categoryID = product.category_name;
-                let categoryName = ` ${categoryID}`;
+                    let categoryName = ` ${categoryID}`;
 
-                if (!rowsCategory[categoryID]) {
-                    const container = document.createElement('div');
-                    container.classList.add('container', 'bg-light', 'mt-3', 'p-2');
+                    if (!rowsCategory[categoryID]) {
+                        const container = document.createElement('div');
+                        container.classList.add('container', 'bg-light', 'mt-3', 'p-2');
 
-                    const categoryHeading = document.createElement('h4');
-                    categoryHeading.textContent = categoryName;
-                    container.appendChild(categoryHeading);
+                        const categoryHeading = document.createElement('h4');
+                        categoryHeading.textContent = categoryName;
+                        container.appendChild(categoryHeading);
 
-                    const categoryRow = document.createElement('div');
-                    categoryRow.classList.add('row', 'g-3');
-                    categoryRow.setAttribute('id', `row-${categoryID}`);
+                        const categoryRow = document.createElement('div');
+                        categoryRow.classList.add('row', 'g-3');
+                        categoryRow.setAttribute('id', `row-${categoryID}`);
 
-                    container.appendChild(categoryRow);
-                    productList.appendChild(container);
+                        container.appendChild(categoryRow);
+                        productList.appendChild(container);
 
-                    rowsCategory[categoryID] = categoryRow;
-                }
-                let discount = (product.product_price)-(product.product_price * product.discount)/100;
-                const col = document.createElement('div');
-                col.classList.add('col-md-4', 'd-flex');
+                        rowsCategory[categoryID] = categoryRow;
+                    }
+                    let discount = (product.product_price) - (product.product_price * product.discount) / 100;
+                    const col = document.createElement('div');
+                    col.classList.add('col-md-4', 'd-flex');
 
-                col.innerHTML = `
+                    col.innerHTML = `
                     <div class="card w-100">
                        <img src="/upload-image/${product.product_image}" class="card-img-top" alt="${product.product_name}">
                         <div class="card-body">
@@ -56,7 +56,7 @@ function fetchProductData() {
                             <p class="card-text">
                             <del>${product.product_price}</del> 
                             <ins class="font-weight-bold">
-                            $${(product.product_price - (product.product_price *product.discount / 100)).toFixed(2)}
+                            $${discount.toFixed(2)}
                             (discount of ${product.discount}%)
                             </ins>
                             </p>
@@ -65,12 +65,12 @@ function fetchProductData() {
                         </div>
                     </div>
                 `;
-                rowsCategory[categoryID].appendChild(col);
-                 }
-                 });
+                    rowsCategory[categoryID].appendChild(col);
+                }
+            });
 
             $(".cart_btn").click(addtocart);
-            },
+        },
         error: function (xhr, status, error) {
             console.error("AJAX Error:", status, error);
             console.error("Response Text:", xhr.responseText);
@@ -88,15 +88,15 @@ function addtocart(event) {
         data: {
             product_id: current_product_id
         },
-        dataType: "json",  
-        success: function(response) {
+        dataType: "json",
+        success: function (response) {
             if (response.success) {
                 alert("Product added to cart successfully");
             } else {
                 alert("product already exist in cart!");
             }
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
             console.error("AJAX Error:", status, error);
             console.error("Response Text:", xhr.responseText);
             alert("Error adding product to cart: " + error);

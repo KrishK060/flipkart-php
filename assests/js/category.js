@@ -33,9 +33,6 @@ function updatedata(event) {
     var new_category_id = $(this).data('id');
     var current_category_name = $(this).data('name');
 
-    console.log("Category ID:", new_category_id);
-    console.log("Current Name:", current_category_name);
-
     let categoryInput = document.getElementById('cname');
     categoryInput.value = current_category_name;
 

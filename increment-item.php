@@ -17,6 +17,7 @@ if ($cart_id > 0) {
     $stmp->close();
 
     if ($product_id) {
+        
         $sql = "select product_stock from product where product_id=?";
         $stmp = $conn->prepare($sql);
         $stmp->bind_param('i', $product_id);
@@ -25,7 +26,7 @@ if ($cart_id > 0) {
         $stmp->fetch();
         $stmp->close();
 
-        if ($quantity >= $product_stock) {
+        if ($product_stock == 0) {
             echo json_encode(["success" => false, "message" => "Cannot increase quantity beyond available stock!"]);
             exit;
         }

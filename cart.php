@@ -100,8 +100,6 @@ if ($_SESSION["user_role"] == "user") {
                     <form action="checkout.php" method="POST">
                         <button type="submit" class="btn btn-warning btn-block btn-lg">Proceed to Pay</button>
                     </form>
-
-
                 </div>
             </div>
         </div>
@@ -110,9 +108,6 @@ if ($_SESSION["user_role"] == "user") {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/assests/js/cart.js"></script>
     <script src="https://js.stripe.com/v3/"></script>
-
-
-
 </body>
 
 </html>

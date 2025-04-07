@@ -16,7 +16,7 @@ $product_stock = isset($_POST["pstock"]) ? intval($_POST["pstock"]) : 0;
 if ($product_id > 0 && !empty($product_name)) {
     if (!empty($product_img)) {
 
-        $upload_dir = "/home/krish.kalaria@simform.dom/Desktop/LMS-2/Flipkart-php/flipkart-php/upload-image/";
+        $upload_dir = "upload-image/";
         $target_file = $upload_dir . basename($product_img);
         move_uploaded_file($_FILES['pimg']['tmp_name'], $target_file);
         $sql = "update product set product_name=?, product_image=?, product_price=?, product_description=?, product_category=?, product_avalaible=?, discount=?, product_stock=? where product_id=?";

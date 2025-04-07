@@ -4,7 +4,6 @@ $(document).ready(function () {
 
 function fetchorder() {
     const cartList = document.getElementById('orderlist-item');
-
     if (!cartList) {
         console.error("Element #orderlist-item not found in the DOM.");
         return;
@@ -15,14 +14,12 @@ function fetchorder() {
         url: "/fetch-orderlist.php",
         dataType: "json",
         success: function (response) {
-            console.log(response)
-
             if (response.length === 0) {
                 cartList.innerHTML = '<p class="text-center text-muted">No items found</p>';
                 return;
             }
 
-           const table = document.createElement('table');
+            const table = document.createElement('table');
             table.className = "table table-bordered table-striped";
 
             table.innerHTML = `
@@ -39,7 +36,6 @@ function fetchorder() {
             `;
 
             const tbody = table.querySelector('tbody');
-
             response.forEach(orderlist => {
                 let discountedprice = orderlist.product_price - (orderlist.product_price * orderlist.product_discount) / 100;
                 let price = orderlist.ordered_quantity * discountedprice;
@@ -54,7 +50,6 @@ function fetchorder() {
                 `;
                 tbody.appendChild(row);
             });
-
             cartList.appendChild(table);
         },
         error: function (xhr, status, error) {

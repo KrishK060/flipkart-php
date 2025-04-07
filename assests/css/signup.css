@@ -12,4 +12,9 @@ body {
 
 #sign-in {
     animation-iteration-count: infinite;
+    border: 5px solid black;
+}
+
+.icons {
+    margin: 0 5px;
 }

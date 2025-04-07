@@ -61,35 +61,35 @@ function display_data() {
 function updatedata(event) {
     event.preventDefault();
 
-    var new_product_id = $(this).data('id');
-    var current_product_name = $(this).data('name');
-    var current_product_image = $(this).data('image');  
-    var current_product_price = $(this).data('price');
-    var current_product_description = $(this).data('description');
-    var current_product_category = $(this).data('category');
-    var current_product_avability = $(this).data('avability');
-    var current_product_discount = $(this).data('discount');
-    var current_product_stock = $(this).data('stock')
+    let new_product_id = $(this).data('id');
+    let current_product_name = $(this).data('name');
+    let current_product_image = $(this).data('image');  
+    let current_product_price = $(this).data('price');
+    let current_product_description = $(this).data('description');
+    let current_product_category = $(this).data('category');
+    let current_product_avability = $(this).data('avability');
+    let current_product_discount = $(this).data('discount');
+    let current_product_stock = $(this).data('stock')
 
-    let productInput = document.getElementById('pname');
+    const productInput = document.getElementById('pname');
     productInput.value = current_product_name;
 
-    let product_price_Input = document.getElementById('pprice');
+    const product_price_Input = document.getElementById('pprice');
     product_price_Input.value = current_product_price;
 
-    let product_description_Input = document.getElementById('ptext');
+    const product_description_Input = document.getElementById('ptext');
     product_description_Input.value = current_product_description;
 
-    let product_category_Input = document.getElementById('category');
+    const product_category_Input = document.getElementById('category');
     $(product_category_Input).val(current_product_category).change(); 
 
-    let product_avability_Input = document.getElementById('avability');
+    const product_avability_Input = document.getElementById('avability');
     $(product_avability_Input).val(current_product_avability).change(); 
 
-    let product_discount_Input = document.getElementById('pdiscount');
+    const product_discount_Input = document.getElementById('pdiscount');
     product_discount_Input.value = current_product_discount;
 
-    let product_stock_Input = document.getElementById('pstock');
+    const product_stock_Input = document.getElementById('pstock');
     product_stock_Input.value = current_product_stock;
     
 
@@ -103,7 +103,6 @@ function updatedata(event) {
         let new_product_discount = product_discount_Input.value
         let new_product_stock = product_stock_Input.value
         let new_product_image = $("#pimg")[0].files[0]; 
-        console.log("new : ",new_product_image)
         if (!new_product_name || !new_product_price || !new_product_description || !new_product_category || !new_product_avability || !new_product_discount || !new_product_stock) {
             alert("Update cancelled or invalid input.");
             return;
@@ -119,10 +118,8 @@ function updatedata(event) {
         formData.append("pstock",new_product_stock);
 
         if (new_product_image) {
-            console.log("dfgnhfg");
             formData.append("pimg", new_product_image); 
         }
-        console.log(new_product_image)
 
         $.ajax({
             type: "POST",
@@ -164,9 +161,3 @@ function deleteproduct(event){
         }
     });
 }
-
-
-
-
-
-  

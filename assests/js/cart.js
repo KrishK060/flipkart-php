@@ -28,7 +28,7 @@ function getcartdata() {
             let totalprice = 0;
             response.forEach(cart => {
                 let discountedprice = cart.product_price - (cart.product_price * cart.discount) / 100;
-                let price = cart.quantity * (cart.product_price - (cart.product_price * cart.discount) / 100);
+                let price = cart.quantity * discountedprice;
                 totalprice += price;
 
                 const col = document.createElement('div');
@@ -105,18 +105,25 @@ function decrementitem(event) {
         dataType: "json",
         success: function (response) {
             console.log(response);
-                if (response.cartDetail.quantity > 0) { 
+
+            if (response.success) {
+                if (response.cartDetail && response.cartDetail.quantity > 0) {
+                   
                     getcartdata();
                 } else {
-                    deletecart(decrement_id);
+                   getcartdata(); 
                 }
-            },
+            } else {
+                alert("Failed: " + response.message);
+            }
+        },
         error: function (xhr, status, error) {
             console.error("AJAX Error:", status, error);
             alert("Error decrementing item in cart: " + error);
         }
     });
 }
+
 
 
 function incrementitem(event) {
@@ -174,8 +181,3 @@ document.querySelector("form").addEventListener("submit", async function (e) {
         alert("Fetch request failed. Check console for details.");
     }
 });
-
-
-
-
-

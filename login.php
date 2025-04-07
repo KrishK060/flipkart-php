@@ -15,7 +15,7 @@ if (empty($_POST["username"]) || empty($_POST["password"])) {
 $username = htmlspecialchars($_POST["username"]);
 $password = htmlspecialchars($_POST["password"]);
 
-$sql = "SELECT id, username, password, user_role FROM user WHERE username=?";
+$sql = "select id, username, password, user_role from user WHERE username=?";
 $stmt = $conn->prepare($sql);
 if (!$stmt) {
     $_SESSION['login_error'] = "Something went wrong. Please try again later.";
