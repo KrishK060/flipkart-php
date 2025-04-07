@@ -36,10 +36,10 @@ if ($stmt->num_rows > 0) {
         "role" => $role
     ];
 
-    $_SESSION['user_id'] = $user['user_id'];
-    $_SESSION['username'] = $user['username'];
-    $_SESSION['user_role'] = $user['role'];
     if (password_verify($password, $db_password)) {
+        $_SESSION['user_id'] = $user['user_id'];
+        $_SESSION['username'] = $user['username'];
+        $_SESSION['user_role'] = $user['role'];
         header("Location: index.php");  
         exit;
     } else {

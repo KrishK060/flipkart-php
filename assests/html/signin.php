@@ -28,7 +28,7 @@
             <div>
                 <div class="userinputs">
                     <i class="fa-solid fa-user" style="margin: 0 5px;"></i>
-                    <input type="text" class="usr" id="usr" placeholder="username" name="username">
+                    <input type="email" class="usr" id="usr" placeholder="email" name="username">
                 </div>
                 <label id="usr-error" class="error" for="usr"></label>
             </div>
