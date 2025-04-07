@@ -97,9 +97,9 @@ if ($_SESSION["user_role"] == "user") {
                             </p>
                         </div>
                     </div>
-                    <form action="checkout.php" method="POST">
-                        <button type="submit" class="btn btn-warning btn-block btn-lg">Proceed to Pay</button>
-                    </form>
+                    
+                        <button type="submit" class="btn btn-warning btn-block btn-lg" id="payment">Proceed to Pay</button>
+                    
                 </div>
             </div>
         </div>

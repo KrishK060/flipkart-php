@@ -148,10 +148,10 @@ function incrementitem(event) {
     });
 }
 
-document.querySelector("form").addEventListener("submit", async function (e) {
+document.getElementById("payment").addEventListener("click", async function (e) {
+    console.log("clicked");
     e.preventDefault();
 
-    const stripe = Stripe("pk_test_51R91QA4cU8xLEUc1PfA6xs7gzRRiRp38peftdZ28SfGJm9I0ertnAl0q4d77JjVLZPFiBjgUoy9Gh7yB8cgAbDok00rR4pHhUe");
     let totalprice = parseFloat($('#totalprice').text());
 
     try {
@@ -163,21 +163,17 @@ document.querySelector("form").addEventListener("submit", async function (e) {
             body: JSON.stringify({ totalAmount: totalprice })
         });
 
-        let text = await response.text();
+        let data = await response.json();
 
-        try {
-            let session = JSON.parse(text);
-            if (session.id) {
-                stripe.redirectToCheckout({ sessionId: session.id });
-            } else {
-                alert("Payment failed: " + session.error);
-            }
-        } catch (jsonError) {
-            console.error("Invalid JSON response:", text);
-            alert("Server error: Invalid JSON response. Check console for details.");
+        if (data.url) {
+            window.location.href = data.url;
+        } else {
+            alert(data.error || "Unexpected error");
         }
+
     } catch (fetchError) {
         console.error("Fetch error:", fetchError);
         alert("Fetch request failed. Check console for details.");
     }
 });
+

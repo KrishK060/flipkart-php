@@ -1,42 +1,21 @@
 <?php
-require_once 'vendor/autoload.php';
-require_once 'config.php';
-require_once 'error.php';
-
-\Stripe\Stripe::setApiKey(sk_test);
+require 'process-payment.php';
 
 header('Content-Type: application/json');
 
 $data = json_decode(file_get_contents("php://input"), true);
 
-if (isset($data['totalAmount']) && is_numeric($data['totalAmount'])) {
-    $totalAmount = $data['totalAmount'] * 100;
-} else {
-    http_response_code(400);
-    echo json_encode(['error' => 'Invalid totalAmount received']);
-    exit();
+$totalAmount = isset($data['totalAmount']) ? floatval($data['totalAmount']) : null;
+
+if (!$totalAmount || $totalAmount <= 0) {
+    echo json_encode(["error" => "Invalid totalAmount received"]);
+    exit;
 }
 
-try {
-    $checkout_session = \Stripe\Checkout\Session::create([
-        'payment_method_types' => ['card'],
-        'line_items' => [[
-            'price_data' => [
-                'currency' => 'usd',
-                'product_data' => [
-                    'name' => 'Shopping Cart Total',
-                ],
-                'unit_amount' => $totalAmount,
-            ],
-            'quantity' => 1,
-        ]],
-        'mode' => 'payment',
-        'success_url' => 'http://myflipkartphp.com/success.php?provider_session_id={CHECKOUT_SESSION_ID}',
-        'cancel_url' => 'http://myflipkartphp.com/cancel.php',
-    ]);
-    echo json_encode(['id' => $checkout_session->id]);
-} catch (Exception $e) {
+$response = createstripesession($totalAmount);
 
-    http_response_code(500);
-    echo json_encode(['error' => $e->getMessage()]);
+if ($response) {
+    echo json_encode(["url" => $response['sessionUrl']]); // send URL to frontend
+} else {
+    echo json_encode(["error" => "Failed to create Stripe session"]);
 }
