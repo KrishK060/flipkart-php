@@ -98,6 +98,7 @@ $stmt->bind_param("sssss", $email, $username, $hash_password, $dob, $phone_numbe
 if ($stmt->execute()) {
     $response["success"] = true;
     $response["message"] = "Signup successful";
+    header("location:/assests/html/signin.php");
 } else {
     $response["message"] = "Signup failed, please try again";
 }

@@ -129,11 +129,44 @@ function updatedata(event) {
             contentType: false,
             dataType: "json",
             success: function (response) {
-                console.log("Server Response:", response);
-                alert(response.message);
-                $('#table tbody').empty();
-                display_data(); 
+                if (response.success) {
+                    alert(response.message); 
+                    $('#table tbody').empty();
+                    display_data(); 
+                } else {
+                    $(".error").text("");
+                    if (response.errors) {
+                        if (response.errors.pname) {
+                            $("#name-error").text(response.errors.pname);
+                        }
+                        if (response.errors.pimg) {
+                            $("#image-error").text(response.errors.pimg);
+                        }
+                        if (response.errors.pprice) {
+                            $("#price-error").text(response.errors.pprice);
+                        }
+                        if (response.errors.pdiscount) {
+                            $("#discount-error").text(response.errors.pdiscount);
+                        }
+                        if (response.errors.ptext) {
+                            $("#discription-error").text(response.errors.ptext);
+                        }
+                        if (response.errors.pcategory) {
+                            $("#category-error").text(response.errors.pcategory);
+                        }
+                        if (response.errors.avability) {
+                            $("#avability-error").text(response.errors.avability);
+                        }
+                        if (response.errors.pstock) {
+                            $("#stock-error").text(response.errors.pstock);
+                        }
+                    } else {
+                     
+                        alert("Error: " + response.message);
+                    }
+                }
             },
+            
             error: function (xhr, status, error) {
                 console.error("AJAX Error:", status, error);
                 console.error("Response Text:", xhr.responseText);

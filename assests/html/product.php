@@ -44,44 +44,67 @@ if (!isset($_SESSION["username"]) || $_SESSION["user_role"] !== "admin") {
     </nav>
     <div class="container">
         <form action="/add-product.php" id="form" data-form="add" method="POST" enctype="multipart/form-data">
-            <div class="mb-3">
-                <label for="pname" class="form-label">Product Name:</label>
-                <input type="text" name="pname" class="form-control" id="pname" required>
+            <div>
+                <div class="mb-3">
+                    <label for="pname" class="form-label">Product Name:</label>
+                    <input type="text" name="pname" class="form-control" id="pname">
+                </div>
+                <label id="name-error" class="error text-danger" for="pname"></label>
             </div>
-            <div class="mb-3">
-                <label for="pimg" class="form-label">Product Image:</label>
-                <input type="file" name="pimg" class="form-control" id="pimg" accept="image/*">
+            <div>
+                <div class="mb-3">
+                    <label for="pimg" class="form-label">Product Image:</label>
+                    <input type="file" name="pimg" class="form-control" id="pimg" accept="image/*">
+                </div>
+                <label id="image-error" class="error text-danger" for="pimg"></label>
             </div>
-            <div class="mb-3">
-                <label for="pprice" class="form-label">Product Price:</label>
-                <input type="number" name="pprice" class="form-control" id="pprice" aria-describedby="emailHelp"
-                    required>
+            <div>
+                <div class="mb-3">
+                    <label for="pprice" class="form-label">Product Price:</label>
+                    <input type="number" name="pprice" class="form-control" id="pprice" aria-describedby="emailHelp">
+                </div>
+                <label id="price-error" class="error text-danger" for="pprice"></label>
             </div>
-            <div class="mb-3">
-                <label for="pdiscount" class="form-label">discount:</label>
-                <input type="number" name="pdiscount" class="form-control" id="pdiscount" aria-describedby="emailHelp">
+            <div>
+                <div class="mb-3">
+                    <label for="pdiscount" class="form-label">discount:</label>
+                    <input type="number" name="pdiscount" class="form-control" id="pdiscount" aria-describedby="emailHelp">
+                </div>
+                <label id="discount-error" class="error text-danger" for="pdiscount"></label>
             </div>
-            <div class="mb-3">
-                <label for="ptext" class="form-label">Description:</label>
-                <input type="textarea" name="ptext" class="form-control" id="ptext" aria-describedby="emailHelp"
-                    required>
-            </div>
-            <div class="mb-3">
-                <label for="category" class="form-label">Product Category:</label>
-                <select class="form-select" name="pcategory" id="category" data-type="addcategory" required>
+            <div>
 
-                </select>
+                <div class="mb-3">
+                    <label for="ptext" class="form-label">Description:</label>
+                    <input type="textarea" name="ptext" class="form-control" id="ptext" aria-describedby="emailHelp">
+                </div>
+                <label id="discription-error" class="error text-danger" for="ptext"></label>
             </div>
-            <div class="mb-3">
-                <label for="avability" class="form-label">Product avability:</label>
-                <select class="form-select" name="avability" id="avability" data-type="productavability" required>
-                    <option value="avalaible">avalaible</option>
-                    <option value="unavalaible">unavalaible</option>
-                </select>
+            <div>
+                <div class="mb-3">
+                    <label for="category" class="form-label">Product Category:</label>
+                    <select class="form-select" name="pcategory" id="category" data-type="addcategory">
+
+                    </select>
+                </div>
+                <label id="category-error" class="error text-danger" for="category"></label>
             </div>
-            <div class="mb-3">
-                <label for="pstock" class="form-label">stock</label>
-                <input type="number" name="pstock" class="form-control" id="pstock" aria-describedby="emailHelp">
+            <div>
+                <div class="mb-3">
+                    <label for="avability" class="form-label">Product avability:</label>
+                    <select class="form-select" name="avability" id="avability" data-type="productavability">
+                        <option value="avalaible">avalaible</option>
+                        <option value="unavalaible">unavalaible</option>
+                    </select>
+                </div>
+                <label id="avability-error" class="error text-danger" for="avability"></label>
+            </div>
+            <div>
+                <div class="mb-3">
+                    <label for="pstock" class="form-label">stock</label>
+                    <input type="number" name="pstock" class="form-control" id="pstock" aria-describedby="emailHelp">
+                </div>
+                <label id="stock-error" class="error text-danger" for="pstock"></label>
             </div>
             <img src="" alt="">
             <button type="submit" id="btn1" class="btn btn-primary" data-type="adddata">Submit</button>
@@ -111,9 +134,15 @@ if (!isset($_SESSION["username"]) || $_SESSION["user_role"] !== "admin") {
         </table>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
         crossorigin="anonymous"></script>
+    <script src="/assests/js/productverification.js"></script>
+
     <script src="/assests/js/product.js"></script>
 </body>
 

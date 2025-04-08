@@ -2,9 +2,7 @@
 session_start();
 require 'config/connection.php';
 require 'validation.php';
-
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
+require_once 'error.php';
 
 if (empty($_POST["username"]) || empty($_POST["password"])) {
     $_SESSION['login_error'] = "Username and password are required";

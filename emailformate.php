@@ -1,7 +1,8 @@
 <html>
 <head>
-    <link href="/assests/css/emailformate.css" rel="stylesheet">
+  <link href="/assests/css/emailformate.css" rel="stylesheet">
 </head>
+
 <body>
   <div class='container'>
     <h2>Hello <?= htmlspecialchars($username) ?></h2>
@@ -27,4 +28,5 @@
     </div>
   </div>
 </body>
+
 </html>
