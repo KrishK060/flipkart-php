@@ -1,4 +1,5 @@
 <?php
+session_start();
 require 'config/connection.php';
 require 'validation.php';
 require 'error.php';
@@ -7,22 +8,20 @@ $response = ["success" => false, "message" => ""];
 
 $product_id = isset($_POST["product_id"]) ? intval($_POST["product_id"]) : 0;
 if ($product_id <= 0) {
-    $response["message"] = "Invalid product ID";
-    $_SESSION["update_error"] = "Invalid product ID";
-    echo json_encode($response);
+    $_SESSION["edit_error"] = "Invalid product ID";
     exit;
 }
 
 $product_name = isset($_POST["pname"]) ? trim($_POST["pname"]) : "";
 if (empty($product_name)) {
-    $response["message"] = "Product name is required";
-    $_SESSION["update_error"] = "Product name is required";
+    $_SESSION["edit_error"] = "Product name is required";
+    $response["message"] = $_SESSION["edit_error"];
     echo json_encode($response);
     exit;
 }
 if (!preg_match("/^[a-zA-Z0-9-' ]*$/", $product_name)) {
-    $response["message"] = "Only letters, numbers, and white spaces are allowed for product name";
-    $_SESSION["update_error"] = "Only letters, numbers, and white spaces are allowed for product name";
+    $_SESSION["edit_error"] = "Only letters and white spaces are allowed";
+    $response["message"] = $_SESSION["edit_error"];
     echo json_encode($response);
     exit;
 }
@@ -30,8 +29,8 @@ if (!preg_match("/^[a-zA-Z0-9-' ]*$/", $product_name)) {
 
 $product_price = isset($_POST["pprice"]) ? trim($_POST["pprice"]) : "";
 if (empty($product_price)) {
-    $response["message"] = "Price is required";
-    $_SESSION["update_error"] = "Price is required";
+    $_SESSION["edit_error"] = "Price is required";
+    $response["message"] = $_SESSION["edit_error"];
     echo json_encode($response);
     exit;
 }
@@ -40,8 +39,8 @@ if (empty($product_price)) {
 
 $product_description = isset($_POST["ptext"]) ? trim($_POST["ptext"]) : "";
 if (empty($product_description)) {
-    $response["message"] = "Description is required";
-    $_SESSION["update_error"] = "description is required";
+    $_SESSION["edit_error"] = "Description is required";
+    $response["message"] = $_SESSION["edit_error"];
     echo json_encode($response);
     exit;
 }
@@ -49,24 +48,24 @@ if (empty($product_description)) {
 
 $product_category = isset($_POST["pcategory"]) ? trim($_POST["pcategory"]) : "";
 if (empty($product_category)) {
-    $response["message"] = "Category is required";
-    $_SESSION["update_error"] = "category is required";
+    $_SESSION["edit_error"] = "Category is required";
+    $response["message"] = $_SESSION["edit_error"];
     echo json_encode($response);
     exit;
 }
 
 $product_avability = isset($_POST["avability"]) ? trim($_POST["avability"]) : "";
 if (empty($product_avability)) {
-    $response["message"] = "Availability status is required";
-    $_SESSION["update_error"] = "availability status is required";
+    $_SESSION["edit_error"] = "Please select the availability of the product";
+    $response["message"] = $_SESSION["edit_error"];
     echo json_encode($response);
     exit;
 }
 
 $product_discount = isset($_POST["pdiscount"]) ? intval($_POST["pdiscount"]) : 0;
-if ($product_discount < 0 || $product_discount > 100) {
-    $response["message"] = "Discount must be between 0 and 100";
-    $_SESSION["update_error"] = "discount must be between 0 and 100 is required";
+if ($product_discount < 0 || $product_discount > 100 || (empty($product_discount))) {
+    $_SESSION["edit_error"] = "Discount is required";
+    $response["message"] = $_SESSION["edit_error"];
     echo json_encode($response);
     exit;
 }
@@ -74,8 +73,8 @@ if ($product_discount < 0 || $product_discount > 100) {
 
 $product_stock = isset($_POST["pstock"]) ? intval($_POST["pstock"]) : 0;
 if ($product_stock < 0) {
-    $response["message"] = "Stock cannot be negative";
-    $_SESSION["update_error"] = "stock cannot be negative";
+    $_SESSION["edit_error"] = "Please enter the stock";
+    $response["message"] = $_SESSION["edit_error"];
     echo json_encode($response);
     exit;
 }
@@ -112,14 +111,24 @@ try {
     } else {
         $sql = "UPDATE product SET product_name=?, product_price=?, product_description=?,  product_category=?,  product_avalaible=?,discount=?, product_stock=? WHERE product_id=?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param('sdsssiis',$product_name,$product_price,$product_description,$product_category,$product_avability,$product_discount,$product_stock,$product_id
+        $stmt->bind_param(
+            'sdsssiis',
+            $product_name,
+            $product_price,
+            $product_description,
+            $product_category,
+            $product_avability,
+            $product_discount,
+            $product_stock,
+            $product_id
         );
     }
 
     if ($stmt->execute()) {
         $response = ["success" => true, "message" => "Product updated successfully"];
     } else {
-        $response = ["success" => false, "message" => "Failed to update product: " . $stmt->error];
+        $response = ["success" => false, "message" => "unable to update product"];
+        exit;
     }
 
     $stmt->close();
@@ -128,4 +137,5 @@ try {
 }
 
 echo json_encode($response);
+unset($_SESSION["edit_error"]);
 exit;

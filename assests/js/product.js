@@ -32,17 +32,17 @@ function display_data() {
             $.each(response, function (key, value) {
                 $('#table tbody').append(
                     '<tr>' +
-                        '<td class="stud_id">' + value['product_id'] + '</td>' +
-                        '<td>' + value['product_name'] + '</td>' +
-                        '<td><img src="/upload-image/' + value['product_image'] + '" width="100px" alt="img"></td>' +
-                        '<td>' + value['product_price'] + '</td>' +
-                        '<td>' + value['discount'] + '</td>' +
-                        '<td>' + value['product_description'] + '</td>' +
-                        '<td>' + value['product_category'] + '</td>' +
-                        '<td>' + value['product_avalaible'] + '</td>' +
-                        '<td>' + value['product_stock'] + '</td>'+
-                        '<td>\
-                            <a href="#" class="btn btn-sm btn-primary edit_btn" data-id="' + value['product_id'] + '" data-name="' + value['product_name'] + '" data-image="' + value['product_image'] +'" data-price="' + value['product_price'] + '" data-description="' + value['product_description'] + '" data-category="' + value['product_category'] + '"data-avability="' + value['product_avalaible'] + '"data-discount="' + value['discount'] + '"data-stock="' + value['product_stock'] + '">EDIT</a>\
+                    '<td class="stud_id">' + value['product_id'] + '</td>' +
+                    '<td>' + value['product_name'] + '</td>' +
+                    '<td><img src="/upload-image/' + value['product_image'] + '" width="100px" alt="img"></td>' +
+                    '<td>' + value['product_price'] + '</td>' +
+                    '<td>' + value['discount'] + '</td>' +
+                    '<td>' + value['product_description'] + '</td>' +
+                    '<td>' + value['product_category'] + '</td>' +
+                    '<td>' + value['product_avalaible'] + '</td>' +
+                    '<td>' + value['product_stock'] + '</td>' +
+                    '<td>\
+                            <a href="#" class="btn btn-sm btn-primary edit_btn" data-id="' + value['product_id'] + '" data-name="' + value['product_name'] + '" data-image="' + value['product_image'] + '" data-price="' + value['product_price'] + '" data-description="' + value['product_description'] + '" data-category="' + value['product_category'] + '"data-avability="' + value['product_avalaible'] + '"data-discount="' + value['discount'] + '"data-stock="' + value['product_stock'] + '">EDIT</a>\
                             <a href="#" class="btn btn-sm btn-danger delete_btn" data-id="' + value['product_id'] + '">DELETE</a>\
                         </td>' +
                     '</tr>'
@@ -57,9 +57,9 @@ function display_data() {
             alert("Error fetching products: " + error);
         }
     });
-} 
+}
 function updatedata(event) {
-    event.preventDefault();
+    // event.preventDefault();
 
     let new_product_id = $(this).data('id');
     let current_product_name = $(this).data('name');
@@ -103,10 +103,7 @@ function updatedata(event) {
         let new_product_discount = product_discount_Input.value
         let new_product_stock = product_stock_Input.value
         let new_product_image = $("#pimg")[0].files[0]; 
-        if (!new_product_name || !new_product_price || !new_product_description || !new_product_category || !new_product_avability || !new_product_discount || !new_product_stock) {
-            alert("Update cancelled or invalid input.");
-            return;
-        }
+        
         let formData = new FormData();
         formData.append("product_id", new_product_id);
         formData.append("pname", new_product_name);
@@ -133,37 +130,11 @@ function updatedata(event) {
                     alert(response.message); 
                     $('#table tbody').empty();
                     display_data(); 
-                } else {
-                    $(".error").text("");
-                    if (response.errors) {
-                        if (response.errors.pname) {
-                            $("#name-error").text(response.errors.pname);
-                        }
-                        if (response.errors.pimg) {
-                            $("#image-error").text(response.errors.pimg);
-                        }
-                        if (response.errors.pprice) {
-                            $("#price-error").text(response.errors.pprice);
-                        }
-                        if (response.errors.pdiscount) {
-                            $("#discount-error").text(response.errors.pdiscount);
-                        }
-                        if (response.errors.ptext) {
-                            $("#discription-error").text(response.errors.ptext);
-                        }
-                        if (response.errors.pcategory) {
-                            $("#category-error").text(response.errors.pcategory);
-                        }
-                        if (response.errors.avability) {
-                            $("#avability-error").text(response.errors.avability);
-                        }
-                        if (response.errors.pstock) {
-                            $("#stock-error").text(response.errors.pstock);
-                        }
-                    } else {
-                     
-                        alert("Error: " + response.message);
-                    }
+                    window.location.reload();
+                } else{
+                    console.log(response);
+                    $('#custome_error').text(response['message']);
+
                 }
             },
             
@@ -174,8 +145,12 @@ function updatedata(event) {
             }
         });
     });
+
 }
-function deleteproduct(event){
+
+
+
+function deleteproduct(event) {
     event.preventDefault();
     let del_product_id = $(this).data('id');
     console.log(del_product_id);
