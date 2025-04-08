@@ -108,10 +108,10 @@ function decrementitem(event) {
 
             if (response.success) {
                 if (response.cartDetail && response.cartDetail.quantity > 0) {
-                   
+
                     getcartdata();
                 } else {
-                   getcartdata(); 
+                    getcartdata();
                 }
             } else {
                 alert("Failed: " + response.message);

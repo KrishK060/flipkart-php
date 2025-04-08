@@ -105,9 +105,9 @@ if ($_SESSION["user_role"] === "user") {
                             </p>
                         </div>
                     </div>
-                    
-                        <button type="submit" class="btn btn-warning btn-block btn-lg" id="payment">Proceed to Pay</button>
-                    
+
+                    <button type="submit" class="btn btn-warning btn-block btn-lg" id="payment">Proceed to Pay</button>
+
                 </div>
             </div>
         </div>

@@ -1,13 +1,10 @@
 <?php
 require '../../error.php';
-
 session_start();
-
 if (!isset($_SESSION["username"]) || $_SESSION["user_role"] !== "admin") {
     header("location: signin.php");
     exit();
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +30,7 @@ if (!isset($_SESSION["username"]) || $_SESSION["user_role"] !== "admin") {
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/assests/html/admin.php">Home</a>
+                        <a class="nav-link" aria-current="page" href="/assests/html/admin.php">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/index.php">flipkart</a>
@@ -117,7 +114,6 @@ if (!isset($_SESSION["username"]) || $_SESSION["user_role"] !== "admin") {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
         crossorigin="anonymous"></script>
-    <!-- <script src="../js/product.js"></script> -->
     <script src="/assests/js/product.js"></script>
 </body>
 

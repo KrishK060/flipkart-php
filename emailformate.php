@@ -1,14 +1,6 @@
 <html>
 <head>
-  <style>
-    body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 20px; }
-    .container { background: #fff; padding: 20px; border-radius: 8px; }
-    h2 { color: #333; }
-    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-    th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
-    th { background: #007bff; color: white; }
-    .footer { margin-top: 30px; font-size: 14px; color: #888; text-align: center; }
-  </style>
+    <link href="/assests/css/emailformate.css" rel="stylesheet">
 </head>
 <body>
   <div class='container'>
@@ -23,6 +15,8 @@
         <th>Product</th>
         <th>Quantity</th>
         <th>Price</th>
+        <th>discount</th>
+        <th>totalAmount</th>
       </tr>
       <?= $product_rows ?>
     </table>

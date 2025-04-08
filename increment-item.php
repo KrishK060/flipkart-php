@@ -17,7 +17,7 @@ if ($cart_id > 0) {
     $stmp->close();
 
     if ($product_id) {
-        
+
         $sql = "select product_stock from product where product_id=?";
         $stmp = $conn->prepare($sql);
         $stmp->bind_param('i', $product_id);

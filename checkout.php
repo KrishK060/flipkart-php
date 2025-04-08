@@ -15,7 +15,7 @@ if (!$totalAmount || $totalAmount <= 0) {
 $response = createstripesession($totalAmount);
 
 if ($response) {
-    echo json_encode(["url" => $response['sessionUrl']]); // send URL to frontend
+    echo json_encode(["url" => $response['sessionUrl']]);
 } else {
     echo json_encode(["error" => "Failed to create Stripe session"]);
 }

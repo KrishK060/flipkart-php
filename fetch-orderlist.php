@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 $user_id = $_SESSION['user_id'];
-$sql ='select ol.*,o.transaction_timestamp  from orderlist as ol left join orders as o on o.order_id = ol.order_id where o.user_id = ?';  
+$sql = 'select ol.*,o.transaction_timestamp  from orderlist as ol left join orders as o on o.order_id = ol.order_id where o.user_id = ?';
 
 $stmt = $conn->prepare($sql);
 $stmt->bind_param('i', $user_id);

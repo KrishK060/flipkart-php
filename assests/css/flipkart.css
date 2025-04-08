@@ -158,7 +158,9 @@ body {
 }
 
 @media (max-width:992px) {
-    .dn,.dn3 {
+
+    .dn,
+    .dn3 {
         display: none;
     }
 }

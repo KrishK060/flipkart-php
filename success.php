@@ -21,14 +21,14 @@ $user_id = $_SESSION['user_id'];
 
 
 echo '<pre>';
-print_r($session );
+print_r($session);
 
 if (!$user_id) {
     die("Error: User ID is missing.");
 }
 
 
-$sql = 'INSERT INTO orders (user_id, total_amount, transaction_timestamp) VALUES (?, ?, NOW())';
+$sql = 'insert into orders (user_id, total_amount, transaction_timestamp) values (?, ?, NOW())';
 $stmt = $conn->prepare($sql);
 $stmt->bind_param('id', $user_id, $totalAmount);
 
@@ -42,7 +42,7 @@ $order_id = $conn->insert_id;
 $stmt->close();
 
 
-$sql = 'SELECT * FROM cart WHERE user_id = ?';
+$sql = 'select * from cart where user_id = ?';
 $stmt = $conn->prepare($sql);
 $stmt->bind_param('i', $user_id);
 $stmt->execute();
@@ -51,14 +51,14 @@ $products = $result->fetch_all(MYSQLI_ASSOC);
 $stmt->close();
 
 
-$insert_orderlist = 'INSERT INTO orderlist (order_id, product_id, ordered_quantity, product_name, product_price, product_discount) VALUES (?, ?, ?, ?, ?, ?)';
+$insert_orderlist = 'insert into orderlist (order_id, product_id, ordered_quantity, product_name, product_price, product_discount) values (?, ?, ?, ?, ?, ?)';
 $orderlist_stmt = $conn->prepare($insert_orderlist);
 
 foreach ($products as $product) {
     $product_id = $product['product_id'];
     $ordered_quantity = $product['quantity'];
 
-    $sql = 'SELECT product_name, product_price, discount FROM product WHERE product_id = ?';
+    $sql = 'select product_name, product_price, discount from product where product_id = ?';
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $product_id);
     $stmt->execute();
@@ -73,7 +73,7 @@ foreach ($products as $product) {
 $orderlist_stmt->close();
 
 
-$sql = "DELETE FROM cart WHERE user_id = ?";
+$sql = "delete from cart where user_id = ?";
 $stmp = $conn->prepare($sql);
 $stmp->bind_param('i', $user_id);
 
@@ -88,11 +88,11 @@ $stmp->close();
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
-$query = 'SELECT o.order_id, o.total_amount, o.user_id, o.status, o.transaction_timestamp,
+$query = 'select o.order_id, o.total_amount, o.user_id, o.status, o.transaction_timestamp,
                  oi.ordered_quantity, oi.product_discount, oi.product_price, oi.product_name
-          FROM orders o
-          JOIN orderlist oi ON o.order_id = oi.order_id
-          WHERE o.order_id = ?';
+          from orders o
+          join orderlist oi ON o.order_id = oi.order_id
+          where o.order_id = ?';
 
 $stmt_order = $conn->prepare($query);
 $stmt_order->bind_param("i", $order_id);
@@ -117,7 +117,7 @@ $stmt_order->close();
 
 
 $user_name = $_SESSION['username'];
-$sql = 'SELECT email FROM user WHERE username = ?';
+$sql = 'select email from user where username = ?';
 $stmt_email = $conn->prepare($sql);
 $stmt_email->bind_param('s', $user_name);
 $stmt_email->execute();
@@ -135,7 +135,7 @@ $order_id = $order_info['order_id'];
 $txn_id = $order_info['transaction_timestamp'];
 $amount = $order_info['total_amount'];
 $order_date = $txn_id ? date("d-m-Y", strtotime($txn_id)) : "N/A";
-$transactionId = $session->payment_intent; 
+$transactionId = $session->payment_intent;
 
 
 $product_rows = "";
@@ -144,17 +144,20 @@ foreach ($order_items as $item) {
         <td>{$item['product_name']}</td>
         <td>{$item['ordered_quantity']}</td>
         <td>₹{$item['product_price']}</td>
+        <td>{$item['product_discount']}</td>
+        <td>{$amount}</td>
     </tr>";
 }
 
 
 ob_start();
-include 'emailformate.php'; 
+include 'emailformate.php';
 $email_body = ob_get_clean();
 
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+
 require 'vendor/autoload.php';
 
 $mail = new PHPMailer(true);

@@ -10,7 +10,8 @@ $dotenv->load();
 
 header('Content-Type: application/json');
 
-function createstripesession($totalAmount){
+function createstripesession($totalAmount)
+{
     try {
         $checkout_session = \Stripe\Checkout\Session::create([
             'payment_method_types' => ['card'],
@@ -20,7 +21,7 @@ function createstripesession($totalAmount){
                     'product_data' => [
                         'name' => 'Shopping Cart Total',
                     ],
-                   'unit_amount' => intval(round($totalAmount * 100)),
+                    'unit_amount' => intval(round($totalAmount * 100)),
 
                 ],
                 'quantity' => 1,
@@ -31,7 +32,7 @@ function createstripesession($totalAmount){
         ]);
         return ['sessionUrl' => $checkout_session->url, 'totalAmount' => $totalAmount];
     } catch (Exception $e) {
-    
+
         http_response_code(500);
         echo json_encode(['error' => $e->getMessage()]);
     }

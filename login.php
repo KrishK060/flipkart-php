@@ -8,7 +8,7 @@ error_reporting(E_ALL);
 
 if (empty($_POST["username"]) || empty($_POST["password"])) {
     $_SESSION['login_error'] = "Username and password are required";
-    header("Location: assests/html/signin.php");  
+    header("Location: assests/html/signin.php");
     exit;
 }
 
@@ -40,7 +40,7 @@ if ($stmt->num_rows > 0) {
         $_SESSION['user_id'] = $user['user_id'];
         $_SESSION['username'] = $user['username'];
         $_SESSION['user_role'] = $user['role'];
-        header("Location: index.php");  
+        header("Location: index.php");
         exit;
     } else {
         $_SESSION['login_error'] = "Invalid username or password";
@@ -52,4 +52,3 @@ if ($stmt->num_rows > 0) {
     header("Location:assests/html/signin.php");
     exit;
 }
-?>
