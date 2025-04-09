@@ -5,6 +5,9 @@ if (!isset($_SESSION["username"]) || $_SESSION["user_role"] !== "admin") {
     header("location: signin.php");
     exit();
 }
+
+$error = $_SESSION['error'] ?? [];
+unset($_SESSION['error']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,42 +46,41 @@ if (!isset($_SESSION["username"]) || $_SESSION["user_role"] !== "admin") {
         </div>
     </nav>
     <div class="container">
-    <span id="custome_error" ></span>
-        <?php
-        if (isset($_SESSION["add_error"])) {
-            echo "<div class='error-message text-danger'>" . $_SESSION["add_error"] . "</div>";
-            unset($_SESSION["add_error"]);
-        }
-        if (isset($_SESSION["add_success"])) {
-            echo "<div class='success-message'>" . $_SESSION["add_success"] . "</div>";
-            unset($_SESSION["add_success"]);
-        }
-        ?>
-
+    <span class="text-danger" id="custome_error" ></span>
         <form action="/add-product.php" id="form" data-form="add" method="POST" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="pname" class="form-label">Product Name:</label>
                 <input type="text" name="pname" class="form-control" id="pname">
+                <span class='text-danger' id="name_error"><?= $error['name_error'] ?? '' ?></span>
+
             </div>
 
             <div class="mb-3">
                 <label for="pimg" class="form-label">Product Image:</label>
                 <input type="file" name="pimg" class="form-control" id="pimg" accept="image/*">
+                <span class='text-danger' id="img_error"><?= $error['image_error'] ?? '' ?></span>
+
             </div>
 
             <div class="mb-3">
                 <label for="pprice" class="form-label">Product Price:</label>
                 <input type="number" name="pprice" class="form-control" id="pprice" aria-describedby="emailHelp">
+                <span class='text-danger' id="price_error"><?= $error['price_error'] ?? '' ?></span>
+
             </div>
 
             <div class="mb-3">
                 <label for="pdiscount" class="form-label">discount:</label>
                 <input type="number" name="pdiscount" class="form-control" id="pdiscount" aria-describedby="emailHelp">
+                <span class='text-danger' id="discount_error"><?= $error['discount_error'] ?? '' ?></span>
+
             </div>
 
             <div class="mb-3">
                 <label for="ptext" class="form-label">Description:</label>
                 <input type="textarea" name="ptext" class="form-control" id="ptext" aria-describedby="emailHelp">
+                <span class='text-danger' id="desc_error"><?= $error['desc_error'] ?? '' ?></span>
+
             </div>
 
             <div class="mb-3">
@@ -86,6 +88,8 @@ if (!isset($_SESSION["username"]) || $_SESSION["user_role"] !== "admin") {
                 <select class="form-select" name="pcategory" id="category" data-type="addcategory">
 
                 </select>
+                <span class='text-danger' id="category_error"><?= $error['category_error'] ?? '' ?></span>
+
             </div>
 
             <div class="mb-3">
@@ -94,11 +98,14 @@ if (!isset($_SESSION["username"]) || $_SESSION["user_role"] !== "admin") {
                     <option value="avalaible">avalaible</option>
                     <option value="unavalaible">unavalaible</option>
                 </select>
+                <span class='text-danger' id="avability_error"><?= $error['avability_error'] ?? '' ?></span>
+
             </div>
 
             <div class="mb-3">
                 <label for="pstock" class="form-label">stock</label>
                 <input type="number" name="pstock" class="form-control" id="pstock" aria-describedby="emailHelp">
+                <span class='text-danger' id="stock_error"><?= $error['stock_error']?? '' ?></span>
             </div>
 
             <img src="" alt="">
@@ -136,7 +143,7 @@ if (!isset($_SESSION["username"]) || $_SESSION["user_role"] !== "admin") {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
         crossorigin="anonymous"></script>
-    <script src="/assests/js/productverification.js"></script>
+    <!-- <script src="/assests/js/productverification.js"></script> -->
 
     <script src="/assests/js/product.js"></script>
 </body>

@@ -105,23 +105,13 @@ if ($is_image_uploaded) {
 
 try {
     if ($is_image_uploaded) {
-        $sql = "UPDATE product SET product_name=?, product_image=?,product_price=?,product_description=?, product_category=?, product_avalaible=?, discount=?, product_stock=? WHERE product_id=?";
+        $sql = "update product set product_name=?, product_image=?,product_price=?,product_description=?, product_category=?, product_avalaible=?, discount=?, product_stock=? where product_id=?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('ssdsssiis', $product_name,  $product_img, $product_price, $product_description,  $product_category, $product_avability, $product_discount, $product_stock, $product_id);
     } else {
-        $sql = "UPDATE product SET product_name=?, product_price=?, product_description=?,  product_category=?,  product_avalaible=?,discount=?, product_stock=? WHERE product_id=?";
+        $sql = "update product set product_name=?, product_price=?, product_description=?,  product_category=?,  product_avalaible=?,discount=?, product_stock=? where product_id=?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param(
-            'sdsssiis',
-            $product_name,
-            $product_price,
-            $product_description,
-            $product_category,
-            $product_avability,
-            $product_discount,
-            $product_stock,
-            $product_id
-        );
+        $stmt->bind_param('sdsssiis', $product_name, $product_price, $product_description, $product_category, $product_avability, $product_discount, $product_stock, $product_id);
     }
 
     if ($stmt->execute()) {

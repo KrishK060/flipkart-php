@@ -5,6 +5,10 @@ if (!isset($_SESSION["username"]) || $_SESSION["user_role"] !== "admin") {
     header("location: signin.php");
     exit();
 }
+$errors = $_SESSION['errors'] ?? [];
+unset($_SESSION['errors']);
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,12 +42,13 @@ if (!isset($_SESSION["username"]) || $_SESSION["user_role"] !== "admin") {
         </div>
     </nav>
     <div class="container">
+    <span class ="text-danger" id="custome_error" ></span>
         <form action="/add-category.php" id="form" data-form="add" method="POST">
             <div>
                 <div class="mb-3">
                     <label for="cname" class="form-label">Category Name:</label>
                     <input type="text" name="cname" class="form-control" id="cname">
-                    <label id="category-error" class="error text-danger" for="cname"></label>
+                    <span class='text-danger' id="name_error"><?= $errors['name_error'] ?? '' ?></span>
                 </div>
             </div>
 
@@ -74,7 +79,7 @@ if (!isset($_SESSION["username"]) || $_SESSION["user_role"] !== "admin") {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
     integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
     crossorigin="anonymous"></script>
-    <script src="/assests/js/categoryverification.js"></script>
+    <!-- <script src="/assests/js/categoryverification.js"></script> -->
     <script src="/assests/js/category.js"></script>
 </body>
 
