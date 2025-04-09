@@ -38,7 +38,7 @@ if ($stmt->num_rows > 0) {
         $_SESSION['user_id'] = $user['user_id'];
         $_SESSION['username'] = $user['username'];
         $_SESSION['user_role'] = $user['role'];
-        header("Location: index.php");
+        header("Location: index");
         exit;
     } else {
         $_SESSION['login_error'] = "Invalid username or password";

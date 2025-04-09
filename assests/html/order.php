@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,7 +30,7 @@
                     <div class="dropdown">
                         <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            <i class="fa-solid fa-circle-user"></i><span class="dn3">Login</span>
+                            <i class="fa-solid fa-circle-user"></i><span class="dn3"><?= $_SESSION["username"] ?? 'Login' ?></span>
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">My profile</a></li>
@@ -54,7 +55,7 @@
                         </button>
                         <span class="dn3">Customer</span>
                     </div>
-                    <a class="btn btn-primary ms-2 admin" href="/assests/html/index.html" role="button">admin panel</a>
+                    <a class="btn btn-primary ms-2 admin" href="/assests/html/admin.php" role="button">admin panel</a>
                     <a href="/logout.php" class="btn btn-danger mr-2"
                         onclick="return confirm('Are you sure you want to log out?')">Logout</a>
                 </div>

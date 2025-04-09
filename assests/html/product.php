@@ -46,7 +46,7 @@ unset($_SESSION['error']);
         </div>
     </nav>
     <div class="container">
-    <span class="text-danger" id="custome_error" ></span>
+    <span class="text-" id="custome_error" ></span>
         <form action="/add-product.php" id="form" data-form="add" method="POST" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="pname" class="form-label">Product Name:</label>

@@ -47,7 +47,7 @@ if ($_SESSION["user_role"] === "user") {
                     <div class="dropdown">
                         <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            <i class="fa-solid fa-circle-user"></i><span class="dn3">Login</span>
+                            <i class="fa-solid fa-circle-user"></i><span class="dn3"><?= $_SESSION["username"] ?? 'Login' ?></span>
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">My profile</a></li>

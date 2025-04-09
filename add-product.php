@@ -31,6 +31,7 @@ if (empty($_POST["pdiscount"])) {
     $error["discount_error"] = "Discount is required";
 } else {
     $product_discount = htmlspecialchars($_POST["pdiscount"]);
+
 }
 
 if (empty($_POST["ptext"])) {
