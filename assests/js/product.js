@@ -63,7 +63,7 @@ function updatedata(event) {
 
     let new_product_id = $(this).data('id');
     let current_product_name = $(this).data('name');
-    let current_product_image = $(this).data('image');  
+    let current_product_image = $(this).data('image');
     let current_product_price = $(this).data('price');
     let current_product_description = $(this).data('description');
     let current_product_category = $(this).data('category');
@@ -81,17 +81,17 @@ function updatedata(event) {
     product_description_Input.value = current_product_description;
 
     const product_category_Input = document.getElementById('category');
-    $(product_category_Input).val(current_product_category).change(); 
+    $(product_category_Input).val(current_product_category).change();
 
     const product_avability_Input = document.getElementById('avability');
-    $(product_avability_Input).val(current_product_avability).change(); 
+    $(product_avability_Input).val(current_product_avability).change();
 
     const product_discount_Input = document.getElementById('pdiscount');
     product_discount_Input.value = current_product_discount;
 
     const product_stock_Input = document.getElementById('pstock');
     product_stock_Input.value = current_product_stock;
-    
+
 
     $("#form").off("submit").on("submit", function (e) {
         e.preventDefault();
@@ -102,20 +102,20 @@ function updatedata(event) {
         let new_product_avability = product_avability_Input.value.trim();
         let new_product_discount = product_discount_Input.value
         let new_product_stock = product_stock_Input.value
-        let new_product_image = $("#pimg")[0].files[0]; 
-        
+        let new_product_image = $("#pimg")[0].files[0];
+
         let formData = new FormData();
         formData.append("product_id", new_product_id);
         formData.append("pname", new_product_name);
         formData.append("pprice", new_product_price);
         formData.append("ptext", new_product_description);
         formData.append("pcategory", new_product_category);
-        formData.append("avability",new_product_avability);
-        formData.append("pdiscount",new_product_discount)
-        formData.append("pstock",new_product_stock);
+        formData.append("avability", new_product_avability);
+        formData.append("pdiscount", new_product_discount)
+        formData.append("pstock", new_product_stock);
 
         if (new_product_image) {
-            formData.append("pimg", new_product_image); 
+            formData.append("pimg", new_product_image);
         }
 
         $.ajax({
@@ -127,17 +127,17 @@ function updatedata(event) {
             dataType: "json",
             success: function (response) {
                 if (response.success) {
-                    alert(response.message); 
+                    alert(response.message);
                     $('#table tbody').empty();
-                    display_data(); 
+                    display_data();
                     window.location.reload();
-                } else{
+                } else {
                     console.log(response);
                     $('#custome_error').text(response['message']);
 
                 }
             },
-            
+
             error: function (xhr, status, error) {
                 console.error("AJAX Error:", status, error);
                 console.error("Response Text:", xhr.responseText);

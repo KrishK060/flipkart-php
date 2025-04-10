@@ -42,7 +42,7 @@ unset($_SESSION['errors']);
         </div>
     </nav>
     <div class="container">
-    <span class ="text-danger" id="custome_error" ></span>
+        <span class="text-danger" id="custome_error"></span>
         <form action="/add-category.php" id="form" data-form="add" method="POST">
             <div>
                 <div class="mb-3">
@@ -77,8 +77,8 @@ unset($_SESSION['errors']);
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-    crossorigin="anonymous"></script>
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
     <script src="/assests/js/category.js"></script>
 </body>
 

@@ -25,13 +25,18 @@ if (empty($_POST["pprice"])) {
     $error["price_error"] = "Price is required";
 } else {
     $product_price = htmlspecialchars($_POST["pprice"]);
+    if ($product_price < 0) {
+        $error["price_error"] = "Price cant be negative";
+    }
 }
 
 if (empty($_POST["pdiscount"])) {
     $error["discount_error"] = "Discount is required";
 } else {
     $product_discount = htmlspecialchars($_POST["pdiscount"]);
-
+    if ($product_discount < 0 || $product_discount > 100) {
+        $error["price_error"] = "discount cant be negative or greater than 100%";
+    }
 }
 
 if (empty($_POST["ptext"])) {
@@ -56,12 +61,15 @@ if (empty($_POST["pstock"])) {
     $error["stock_error"] = "Please enter the stock";
 } else {
     $product_stock = htmlspecialchars($_POST["pstock"]);
+    if ($product_stock < 0) {
+        $error["stock_error"] = "Stock can't be negative";
+    }
 }
 
 if (!empty($error)) {
     $_SESSION['error'] = $error;
     header("Location: /assests/html/product.php");
-    exit; 
+    exit;
 }
 
 

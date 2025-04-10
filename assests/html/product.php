@@ -46,7 +46,7 @@ unset($_SESSION['error']);
         </div>
     </nav>
     <div class="container">
-    <span class="text-" id="custome_error" ></span>
+        <span class="text-" id="custome_error"></span>
         <form action="/add-product.php" id="form" data-form="add" method="POST" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="pname" class="form-label">Product Name:</label>
@@ -105,7 +105,7 @@ unset($_SESSION['error']);
             <div class="mb-3">
                 <label for="pstock" class="form-label">stock</label>
                 <input type="number" name="pstock" class="form-control" id="pstock" aria-describedby="emailHelp">
-                <span class='text-danger' id="stock_error"><?= $error['stock_error']?? '' ?></span>
+                <span class='text-danger' id="stock_error"><?= $error['stock_error'] ?? '' ?></span>
             </div>
 
             <img src="" alt="">

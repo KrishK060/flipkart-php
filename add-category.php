@@ -10,14 +10,14 @@ if (empty($_POST["cname"])) {
    $category_name = htmlspecialchars(trim($_POST["cname"]));
 
    if (!preg_match("/^[a-zA-Z-' ]*$/", $category_name)) {
-       $errors["name_error"] = "Only letters and white spaces are allowed.";
+      $errors["name_error"] = "Only letters and white spaces are allowed.";
    }
 }
 
 if (!empty($errors)) {
    $_SESSION['errors'] = $errors;
    header("Location: /assests/html/category.php");
-   exit; 
+   exit;
 }
 
 $sql = 'insert into category(category_name)values(?)';
@@ -27,7 +27,6 @@ $stmp->bind_param('s', $category_name);
 if ($stmp->execute()) {
    echo "category added succesfully";
    $_SESSION["addcategory_success"] = "Category added successfully";
-
 } else {
    $_SESSION["addcategory_error"] = "Failed to add category";
 }

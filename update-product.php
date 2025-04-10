@@ -28,7 +28,7 @@ if (!preg_match("/^[a-zA-Z0-9-' ]*$/", $product_name)) {
 
 
 $product_price = isset($_POST["pprice"]) ? trim($_POST["pprice"]) : "";
-if (empty($product_price)) {
+if (empty($product_price) || $product_price < 0) {
     $_SESSION["edit_error"] = "Price is required";
     $response["message"] = $_SESSION["edit_error"];
     echo json_encode($response);
@@ -62,13 +62,21 @@ if (empty($product_avability)) {
     exit;
 }
 
-$product_discount = isset($_POST["pdiscount"]) ? intval($_POST["pdiscount"]) : 0;
-if ($product_discount < 0 || $product_discount > 100 || (empty($product_discount))) {
+if (!isset($_POST["pdiscount"]) || !is_numeric($_POST["pdiscount"])) {
     $_SESSION["edit_error"] = "Discount is required";
     $response["message"] = $_SESSION["edit_error"];
     echo json_encode($response);
     exit;
 }
+
+$product_discount = intval($_POST["pdiscount"]);
+if ($product_discount < 0 || $product_discount > 100) {
+    $_SESSION["edit_error"] = "Discount must be between 0 and 100";
+    $response["message"] = $_SESSION["edit_error"];
+    echo json_encode($response);
+    exit;
+}
+
 
 
 $product_stock = isset($_POST["pstock"]) ? intval($_POST["pstock"]) : 0;
