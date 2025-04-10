@@ -156,6 +156,7 @@ function deleteproduct(event) {
         dataType: "json",
         success: function (response) {
             console.log(response);
+            window.location.reload();
         },
         error: function (xhr, status, error) {
             console.error("AJAX Error:", status, error);

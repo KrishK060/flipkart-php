@@ -77,6 +77,9 @@ function deletecategory(event) {
         data: { category_id: del_category_id },
         dataType: "json",
         success: function (response) {
+            if (response.success) {
+                window.location.reload();
+            }
         },
         error: function (xhr, status, error) {
             console.error("AJAX Error:", status, error);
