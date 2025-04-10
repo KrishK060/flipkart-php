@@ -1,12 +1,12 @@
 <?php
 session_start();
-require 'config/connection.php';
-require 'validation.php';
-require_once 'error.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/error/validation.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/config/connection.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/error/error.php';
 
 if (empty($_POST["username"]) || empty($_POST["password"])) {
     $_SESSION['login_error'] = "Username and password are required";
-    header("Location: assests/html/signin.php");
+    header("Location:/signin.php");
     exit;
 }
 
@@ -17,7 +17,7 @@ $sql = "select id, username, password, user_role from user WHERE username=?";
 $stmt = $conn->prepare($sql);
 if (!$stmt) {
     $_SESSION['login_error'] = "Something went wrong. Please try again later.";
-    header("Location:assests/html/signin.php");
+    header("Location:/signin");
     exit;
 }
 
@@ -38,15 +38,15 @@ if ($stmt->num_rows > 0) {
         $_SESSION['user_id'] = $user['user_id'];
         $_SESSION['username'] = $user['username'];
         $_SESSION['user_role'] = $user['role'];
-        header("Location: index");
+        header("Location:/index");
         exit;
     } else {
         $_SESSION['login_error'] = "Invalid username or password";
-        header("Location:assests/html/signin.php");
+        header("Location:/signin");
         exit;
     }
 } else {
     $_SESSION['login_error'] = "Invalid username or password";
-    header("Location:assests/html/signin.php");
+    header("Location:/signin");
     exit;
 }

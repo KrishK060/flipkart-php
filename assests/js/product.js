@@ -5,7 +5,7 @@ $(document).ready(function () {
 function get_cetagory_data() {
     $.ajax({
         type: "GET",
-        url: "/fetch-category.php",
+        url: "/includes/fetch-category.php",
         dataType: "json",
         success: function (response) {
             $('#category').empty();
@@ -26,7 +26,7 @@ function get_cetagory_data() {
 function display_data() {
     $.ajax({
         type: "GET",
-        url: "/fetch-product2.php",
+        url: "/includes/fetch-product2.php",
         dataType: "json",
         success: function (response) {
             $.each(response, function (key, value) {
@@ -59,7 +59,6 @@ function display_data() {
     });
 }
 function updatedata(event) {
-    // event.preventDefault();
 
     let new_product_id = $(this).data('id');
     let current_product_name = $(this).data('name');
@@ -120,7 +119,7 @@ function updatedata(event) {
 
         $.ajax({
             type: "POST",
-            url: "/update-product.php",
+            url: "/includes/update-product.php",
             data: formData,
             processData: false,
             contentType: false,
@@ -156,11 +155,13 @@ function deleteproduct(event) {
     console.log(del_product_id);
     $.ajax({
         type: "POST",
-        url: "/delete-product.php",
+        url: "/includes/delete-product.php",
         data: { product_id: del_product_id },
         dataType: "json",
         success: function (response) {
-            console.log(response);
+            if (response.success) {
+                window.location.reload();
+            }
         },
         error: function (xhr, status, error) {
             console.error("AJAX Error:", status, error);

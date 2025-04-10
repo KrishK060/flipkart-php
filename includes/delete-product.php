@@ -1,6 +1,7 @@
 <?php
-require 'config/connection.php';
-require 'validation.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/error/validation.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/config/connection.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/error/error.php';
 header("Content-Type: application/json");
 
 if (!isset($_POST["product_id"])) {

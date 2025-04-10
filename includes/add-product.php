@@ -1,8 +1,8 @@
 <?php
 session_start();
-require 'config/connection.php';
-require 'validation.php';
-require 'error.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/error/validation.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/config/connection.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/error/error.php';
 
 $error = [];
 
@@ -68,7 +68,7 @@ if (empty($_POST["pstock"])) {
 
 if (!empty($error)) {
     $_SESSION['error'] = $error;
-    header("Location: /assests/html/product.php");
+    header("Location: /product");
     exit;
 }
 
@@ -83,7 +83,7 @@ $stmp = $conn->prepare($sql);
 $stmp->bind_param('ssisisii', $product_name, $product_image, $product_price, $product_description, $product_category, $product_avability, $product_discount, $product_stock);
 
 if ($stmp->execute()) {
-    $upload_path = "upload-image/" . $product_image;
+    $upload_path = "../upload-image/" . $product_image;
     move_uploaded_file($_FILES['pimg']['tmp_name'], $upload_path);
     $_SESSION["add_success"] = "Product added successfully";
 } else {
@@ -93,5 +93,5 @@ if ($stmp->execute()) {
 $stmp->close();
 $conn->close();
 
-header("Location: /assests/html/product.php");
+header("Location: /product");
 exit;

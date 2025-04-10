@@ -4,7 +4,7 @@ $(document).ready(function () {
 function getdata() {
     $.ajax({
         type: "GET",
-        url: "/fetch-category.php",
+        url: "/includes/fetch-category.php",
         success: function (response) {
             $.each(response, function (key, value) {
                 $('#table tbody').append('<tr>' +
@@ -42,7 +42,7 @@ function updatedata(event) {
         let category_id = document.getElementById('category_id').value;
         $.ajax({
             type: "POST",
-            url: "/update-category.php",
+            url: "/includes/update-category.php",
             data: {
                 category_id: category_id,
                 cname: new_category_name
@@ -73,10 +73,13 @@ function deletecategory(event) {
     var del_category_id = $(this).data('id');
     $.ajax({
         type: "POST",
-        url: "/delete-category.php",
+        url: "/includes/delete-category.php",
         data: { category_id: del_category_id },
         dataType: "json",
         success: function (response) {
+            if (response.success) {
+                window.location.reload();
+            }
         },
         error: function (xhr, status, error) {
             console.error("AJAX Error:", status, error);

@@ -1,3 +1,11 @@
+<?php
+require 'error/error.php';
+session_start();
+if (!isset($_SESSION["username"]) || $_SESSION["user_role"] !== "admin") {
+    header("location: signin");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,7 +50,7 @@
                     </div>
 
                     <div class="cart">
-                        <a href="/index.php">
+                        <a href="/">
                             Home Page
                         </a>
                     </div>
@@ -54,8 +62,8 @@
                         </button>
                         <span class="dn3">Customer</span>
                     </div>
-                    <a class="btn btn-primary ms-2 admin" href="/assests/html/admin.php" role="button">admin panel</a>
-                    <a href="/logout.php" class="btn btn-danger mr-2"
+                    <a class="btn btn-primary ms-2 admin" href="admin" role="button">admin panel</a>
+                    <a href="includes/logout" class="btn btn-danger mr-2"
                         onclick="return confirm('Are you sure you want to log out?')">Logout</a>
                 </div>
             </nav>

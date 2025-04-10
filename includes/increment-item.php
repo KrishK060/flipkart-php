@@ -1,8 +1,7 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-require 'config/connection.php';
-require 'validation.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/error/validation.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/config/connection.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/error/error.php';
 header("Content-Type: application/json");
 
 $cart_id = isset($_POST["cart_id"]) ? intval($_POST["cart_id"]) : 0;

@@ -1,8 +1,9 @@
 <?php
-require '../../error.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/config/connection.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/error/error.php';
 session_start();
 if (!isset($_SESSION["username"]) || $_SESSION["user_role"] !== "admin") {
-    header("location: signin.php");
+    header("location: signin");
     exit();
 }
 
@@ -25,7 +26,7 @@ unset($_SESSION['error']);
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
+            <a class="navbar-brand">Navbar</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -33,13 +34,13 @@ unset($_SESSION['error']);
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/assests/html/admin.php">Home</a>
+                        <a class="nav-link" aria-current="page" href="admin">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/index.php">flipkart</a>
+                        <a class="nav-link" href="/">flipkart</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/assests/html/category.php">Category crud</a>
+                        <a class="nav-link" href="category">Category crud</a>
                     </li>
                 </ul>
             </div>
@@ -47,7 +48,7 @@ unset($_SESSION['error']);
     </nav>
     <div class="container">
         <span class="text-" id="custome_error"></span>
-        <form action="/add-product.php" id="form" data-form="add" method="POST" enctype="multipart/form-data">
+        <form action="includes/add-product" id="form" data-form="add" method="POST" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="pname" class="form-label">Product Name:</label>
                 <input type="text" name="pname" class="form-control" id="pname">
@@ -143,7 +144,6 @@ unset($_SESSION['error']);
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
         crossorigin="anonymous"></script>
-    <!-- <script src="/assests/js/productverification.js"></script> -->
 
     <script src="/assests/js/product.js"></script>
 </body>

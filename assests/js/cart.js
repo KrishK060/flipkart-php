@@ -13,7 +13,7 @@ function getcartdata() {
 
     $.ajax({
         type: "GET",
-        url: "/fetch-cart.php",
+        url: "/includes/fetch-cart.php",
         dataType: "json",
         success: function (response) {
             cartList.innerHTML = '';
@@ -82,7 +82,7 @@ function deletecart(event) {
     let del_cart_id = $(this).data('cart-id');
     $.ajax({
         type: "POST",
-        url: "/delete-cart.php",
+        url: "/includes/delete-cart.php",
         data: { cart_id: del_cart_id },
         dataType: "json",
         success: function (response) {
@@ -100,7 +100,7 @@ function decrementitem(event) {
 
     $.ajax({
         type: "POST",
-        url: "/decrement-item.php",
+        url: "/includes/decrement-item.php",
         data: { cart_id: decrement_id },
         dataType: "json",
         success: function (response) {
@@ -131,7 +131,7 @@ function incrementitem(event) {
     let increment_id = $(this).data('cart-id');
     $.ajax({
         type: "POST",
-        url: "/increment-item.php",
+        url: "/includes/increment-item.php",
         data: { cart_id: increment_id },
         dataType: "json",
         success: function (response) {
@@ -155,8 +155,10 @@ document.getElementById("payment").addEventListener("click", async function (e) 
     let totalprice = parseFloat($('#totalprice').text());
 
     try {
-        let response = await fetch("../../checkout.php", {
+       
+        let response = await fetch("/includes/payment/checkout.php", {
             method: "POST",
+            datatype: "json",
             headers: {
                 "Content-Type": "application/json",
             },

@@ -1,19 +1,19 @@
 <?php
 
-use Dotenv\Dotenv;
-
-require 'config/connection.php';
-require_once 'vendor/autoload.php';
-require_once 'config.php';
-require_once 'error.php';
-require '.env';
 session_start();
-
+require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/config/connection.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/error/error.php';
+// require_once $_SERVER['DOCUMENT_ROOT'] . '/config/stripe-config.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/.env';
+use Dotenv\Dotenv;
+$dotenv = Dotenv::createImmutable(__DIR__);
+ $dotenv->load();
 echo "<h1>Payment Successful!</h1>";
 echo "<p>Thank you for your purchase.</p>";
 
 $sessionId = $_REQUEST['provider_session_id'];
-$stripe = new \Stripe\StripeClient(sk_test);
+$stripe = new \Stripe\StripeClient($_ENV['stripeskkey']);
 $session = $stripe->checkout->sessions->retrieve($sessionId);
 $paymentid = $session->payment_intent;
 $totalAmount = $session->amount_total / 100;
@@ -85,8 +85,8 @@ if ($stmp->execute()) {
 $stmp->close();
 
 
-$dotenv = Dotenv::createImmutable(__DIR__);
-$dotenv->load();
+// $dotenv = Dotenv::createImmutable(__DIR__);
+// $dotenv->load();
 
 $query = 'select o.order_id, o.total_amount, o.user_id, o.status, o.transaction_timestamp,
                  oi.ordered_quantity, oi.product_discount, oi.product_price, oi.product_name
@@ -158,7 +158,7 @@ $email_body = ob_get_clean();
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require 'vendor/autoload.php';
+// require 'vendor/autoload.php';
 
 $mail = new PHPMailer(true);
 

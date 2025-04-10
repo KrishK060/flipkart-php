@@ -1,6 +1,7 @@
 <?php
 session_start();
-require 'config/connection.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/config/connection.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/error/error.php';
 header("Content-type:application/json");
 
 if (!isset($_SESSION['user_id'])) {

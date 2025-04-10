@@ -1,7 +1,8 @@
 <?PHP
 session_start();
-require 'config/connection.php';
-require 'validation.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/error/validation.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/config/connection.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/error/error.php';
 
 $errors = [];
 if (empty($_POST["cname"])) {
@@ -16,7 +17,7 @@ if (empty($_POST["cname"])) {
 
 if (!empty($errors)) {
    $_SESSION['errors'] = $errors;
-   header("Location: /assests/html/category.php");
+   header("Location: /category");
    exit;
 }
 
@@ -32,5 +33,5 @@ if ($stmp->execute()) {
 }
 $stmp->close();
 $conn->close();
-header("Location: /assests/html/category.php");
+header("Location:/category");
 exit;

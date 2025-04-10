@@ -1,8 +1,9 @@
 <?php
-require '../../error.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/config/connection.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/error/error.php';
 session_start();
 if (!isset($_SESSION["username"]) || $_SESSION["user_role"] !== "admin") {
-    header("location: signin.php");
+    header("location: signin");
     exit();
 }
 $errors = $_SESSION['errors'] ?? [];
@@ -29,13 +30,13 @@ unset($_SESSION['errors']);
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/assests/html/admin.php">Home</a>
+                        <a class="nav-link" aria-current="page" href="admin">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/assests/html/product.php">Product crud</a>
+                        <a class="nav-link" href="product">Product crud</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/index.php">flipkart</a>
+                        <a class="nav-link" href="/">flipkart</a>
                     </li>
                 </ul>
             </div>
@@ -43,7 +44,7 @@ unset($_SESSION['errors']);
     </nav>
     <div class="container">
         <span class="text-danger" id="custome_error"></span>
-        <form action="/add-category.php" id="form" data-form="add" method="POST">
+        <form action="includes/add-category.php" id="form" data-form="add" method="POST">
             <div>
                 <div class="mb-3">
                     <label for="cname" class="form-label">Category Name:</label>

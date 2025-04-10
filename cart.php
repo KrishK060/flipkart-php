@@ -1,8 +1,10 @@
 <?php
+require_once $_SERVER['DOCUMENT_ROOT'] . '/config/connection.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/error/error.php';
 session_start();
 
 if (!isset($_SESSION["username"])) {
-    header("location: signin.php");
+    header("location: signin");
     exit();
 }
 
@@ -60,7 +62,7 @@ if ($_SESSION["user_role"] === "user") {
                     </div>
 
                     <div class="cart">
-                        <a href="/index.php">
+                        <a href="/">
                             Home Page
                         </a>
                     </div>
@@ -72,8 +74,8 @@ if ($_SESSION["user_role"] === "user") {
                         </button>
                         <span class="dn3">Customer</span>
                     </div>
-                    <a class="btn btn-primary ms-2 admin" href="/assests/html/admin.php" role="button">admin panel</a>
-                    <a href="/logout.php" class="btn btn-danger mr-2"
+                    <a class="btn btn-primary ms-2 admin" href="admin" role="button">admin panel</a>
+                    <a href="/includes/logout.php" class="btn btn-danger mr-2"
                         onclick="return confirm('Are you sure you want to log out?')">Logout</a>
                 </div>
             </nav>

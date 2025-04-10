@@ -14,7 +14,7 @@
         <div class="inputs">
             <a href="#" class="btn" id="signin" style="border: 5px solid black;"><i class="fa-solid fa-user"
                     style="margin: 0 10px;"></i>Login</a>
-            <a href="/assests/html/signup.html" class="btn" id="signup" style="border: 5px solid black;"><i
+            <a href="signup" class="btn" id="signup" style="border: 5px solid black;"><i
                     class="fa-solid fa-user-plus" style="margin: 0 5px;"></i>Signup</a>
         </div>
         <?php
@@ -24,7 +24,7 @@
             unset($_SESSION['login_error']);
         }
         ?>
-        <form action="/login.php" method="POST" class="input-form" id="login-form">
+        <form action="/includes/login.php" method="POST" class="input-form" id="login-form">
             <div>
                 <div class="userinputs">
                     <i class="fa-solid fa-user" style="margin: 0 5px;"></i>

@@ -11,7 +11,7 @@ function fetchorder() {
 
     $.ajax({
         type: "GET",
-        url: "/fetch-orderlist.php",
+        url: "/includes/fetch-orderlist.php",
         dataType: "json",
         success: function (response) {
             if (response.length === 0) {
