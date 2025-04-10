@@ -54,11 +54,23 @@ body {
     text-decoration: none;
     border-radius: 5px;
     text-align: center;
+    border: 5px solid black;
 }
 
 #signup:hover {
     transition: width 10s;
     width: 250px;
+}
+.fa-user-plus{
+    margin: 0 5px;
+}
+
+.fa-user{
+    margin: 0 10px;
+}
+
+.fa-lock{
+    margin: 0 5px;
 }
 
 #signin-btn {
@@ -166,6 +178,11 @@ body {
     transition: width 2s, height 4s;
     width: 100px;
     height: 50px;
+}
+
+.error{
+    color: red; 
+    margin-bottom: 10px;
 }
 
 @media (max-width:465px) {

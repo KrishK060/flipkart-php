@@ -59,8 +59,6 @@ function display_data() {
     });
 }
 function updatedata(event) {
-    // event.preventDefault();
-
     let new_product_id = $(this).data('id');
     let current_product_name = $(this).data('name');
     let current_product_image = $(this).data('image');
@@ -148,12 +146,9 @@ function updatedata(event) {
 
 }
 
-
-
 function deleteproduct(event) {
     event.preventDefault();
     let del_product_id = $(this).data('id');
-    console.log(del_product_id);
     $.ajax({
         type: "POST",
         url: "/delete-product.php",

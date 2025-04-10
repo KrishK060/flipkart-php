@@ -21,9 +21,8 @@ unset($_SESSION['errors']);
 <body>
     <div class="loginpage">
         <div class="inputs">
-            <a href="/assests/html/signin.php" class="btn" id="sign-in"><i class="fa-solid fa-user"
-                    style="margin: 0 5px;"></i>Login</a>
-            <a href="#" class="btn" id="signup"><i class="fa-solid fa-user-plus" style="margin: 0 5px;"></i>Signup</a>
+            <a href="/assests/html/signin.php" class="btn" id="sign-in"><i class="fa-solid fa-user"></i>Login</a>
+            <a href="#" class="btn" id="signup"><i class="fa-solid fa-user-plus"></i>Signup</a>
         </div>
         <form action="/signup.php" class="input-form" method="post" id="signup-form">
             <div>
@@ -83,8 +82,6 @@ unset($_SESSION['errors']);
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
-    <!-- <script src="/assests/js/signup.js"></script> -->
-
 </body>
 
 </html>
