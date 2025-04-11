@@ -8,7 +8,6 @@ if (!isset($_POST["cart_id"])) {
     echo json_encode(["success" => false, "message" => "cart_id is required"]);
     exit();
 }
-
 $cart_id = intval($_POST["cart_id"]);
 
 $sql = "delete from cart where cart_id = ?";

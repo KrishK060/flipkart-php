@@ -1,11 +1,8 @@
 <?php
+require_once $_SERVER['DOCUMENT_ROOT'] . '/admin-verification.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/config/connection.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/error/error.php';
-session_start();
-if (!isset($_SESSION["username"]) || $_SESSION["user_role"] !== "admin") {
-    header("location: signin");
-    exit();
-}
+
 
 $error = $_SESSION['error'] ?? [];
 unset($_SESSION['error']);

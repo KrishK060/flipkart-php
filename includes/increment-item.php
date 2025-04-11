@@ -4,9 +4,13 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/config/connection.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/error/error.php';
 header("Content-Type: application/json");
 
-$cart_id = isset($_POST["cart_id"]) ? intval($_POST["cart_id"]) : 0;
+if (!isset($_POST["cart_id"])) {
+    echo json_encode(["success" => false, "message" => "cart_id is required"]);
+    exit();
+}
+$cart_id = intval($_POST["cart_id"]);
 
-if ($cart_id > 0) {
+
     $sql = "select product_id, quantity from cart where cart_id=?";
     $stmp = $conn->prepare($sql);
     $stmp->bind_param('i', $cart_id);
@@ -38,6 +42,8 @@ if ($cart_id > 0) {
             $response = ["success" => false, "message" => "Failed to update product stock"];
         }
         $stmp->close();
+    }else{
+        $response = ["success" => false, "message" => "product id not found"];
     }
 
     if ($quantity >= 0) {
@@ -51,8 +57,6 @@ if ($cart_id > 0) {
         }
         $stmp->close();
     }
-} else {
-    $response = ["success" => false, "message" => "Invalid cart ID"];
-}
+
 
 echo json_encode($response);

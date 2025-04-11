@@ -11,7 +11,7 @@ if (empty($_POST["pname"])) {
 } else {
     $product_name = htmlspecialchars($_POST["pname"]);
     if (!preg_match("/^[a-zA-Z-' ]*$/", $product_name)) {
-        $error["name_error"] = "Only letters and white spaces aren't allowed";
+        $error["name_error"] = "only letters and white spaces are allowed";
     }
 }
 
@@ -72,10 +72,8 @@ if (!empty($error)) {
     exit;
 }
 
-
 $image_ext = pathinfo($_FILES["pimg"]["name"], PATHINFO_EXTENSION);
 $product_image = pathinfo($product_image, PATHINFO_FILENAME) . '_' . time() . '_' . uniqid() . '.' . $image_ext;
-
 
 $sql = 'INSERT INTO product(product_name, product_image, product_price, product_description, product_category, product_avalaible, discount, product_stock) 
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)';

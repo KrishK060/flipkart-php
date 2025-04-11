@@ -4,12 +4,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/error/validation.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/config/connection.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/error/error.php';
 
-
-$category_id = isset($_POST["category_id"]) ? intval($_POST["category_id"]) : 0;
-if ($category_id <= 0) {
-    $_SESSION["editcategory_error"] = "Invalid category ID";
-    exit;
+if (!isset($_POST["category_id"])) {
+    echo json_encode(["success" => false, "message" =>"Invalid category ID"]);
+    exit();
 }
+$category_id = intval($_POST["category_id"]);
+
 $category_name = isset($_POST["cname"]) ? trim($_POST["cname"]) : '';
 if (empty($category_name)) {
     $_SESSION["editcategory_error"] = "category name is required";
@@ -41,5 +41,4 @@ if ($category_id > 0 && !empty($category_name)) {
 }
 
 echo json_encode($response);
-
 exit;

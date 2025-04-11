@@ -1,8 +1,12 @@
 <?php
-$servername = "localhost";
-$username = "krish";
-$password = "123";
-$database = "flipkart_php";
+use Dotenv\Dotenv;
+require_once 'vendor/autoload.php';
+$dotenv = Dotenv::createImmutable(__DIR__.'/../');
+$dotenv->load();
+$servername = $_ENV["servername"];
+$username = $_ENV["username"];
+$password = $_ENV["password"];
+$database = $_ENV["databasename"];
 $conn = new mysqli($servername, $username, $password, $database);
 
 if ($conn->connect_error) {

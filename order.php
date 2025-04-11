@@ -1,11 +1,7 @@
 <?php
-require 'error/error.php';
-session_start();
-if (!isset($_SESSION["username"])) {
-    header("location: signin");
-    exit();
-}
+require_once $_SERVER['DOCUMENT_ROOT'] . '/verified-user.php'
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 

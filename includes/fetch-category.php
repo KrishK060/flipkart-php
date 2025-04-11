@@ -4,11 +4,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/error/error.php';
 header("Content-type:application/json");
 $sql = "select * from category";
 $result = $conn->query($sql);
-$category = [];
-if ($result->num_rows > 0) {
-    foreach ($result as $row) {
-        array_push($category, $row);
-    }
-}
+$category = $result->fetch_all(MYSQLI_ASSOC);
 echo json_encode($category);
 exit();

@@ -131,7 +131,6 @@ function updatedata(event) {
                     display_data();
                     window.location.reload();
                 } else {
-                    console.log(response);
                     $('#custome_error').text(response['message']);
 
                 }
@@ -147,12 +146,9 @@ function updatedata(event) {
 
 }
 
-
-
 function deleteproduct(event) {
     event.preventDefault();
     let del_product_id = $(this).data('id');
-    console.log(del_product_id);
     $.ajax({
         type: "POST",
         url: "/includes/delete-product.php",
