@@ -4,7 +4,11 @@ require 'validation.php';
 require 'error.php';
 header("Content-Type: application/json");
 
-$cart_id = isset($_POST["cart_id"]) ? intval($_POST["cart_id"]) : 0;
+if (!isset($_POST["cart_id"])) {
+    echo json_encode(["success" => false, "message" => "cart_id is required"]);
+    exit();
+}
+$cart_id = intval($_POST["cart_id"]);
 
 if ($cart_id > 0) {
     $sql = "select product_id, quantity from cart where cart_id=?";

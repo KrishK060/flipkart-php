@@ -6,7 +6,7 @@ require_once 'error.php';
 
 header('Content-Type: application/json');
 
-$errors=[];
+$errors = [];
 
 if (empty($_POST["email"])) {
     $errors["email_error"] = "Email is required";
@@ -39,7 +39,7 @@ $check_stmt->bind_param("s", $username);
 $check_stmt->execute();
 $check_stmt->store_result();
 if ($check_stmt->num_rows > 0) {
-    $errors["name_error"]= "Username already exists";
+    $errors["name_error"] = "Username already exists";
 }
 
 $dob = $_POST["dob"] ?? null;

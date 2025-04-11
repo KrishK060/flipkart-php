@@ -6,11 +6,11 @@ require 'error.php';
 
 $response = ["success" => false, "message" => ""];
 
-$product_id = isset($_POST["product_id"]) ? intval($_POST["product_id"]) : 0;
-if ($product_id <= 0) {
-    $_SESSION["edit_error"] = "Invalid product ID";
-    exit;
+if (!isset($_POST["product_id"])) {
+    echo json_encode(["success" => false, "message" =>"Invalid product ID"]);
+    exit();
 }
+$product_id = intval($_POST["product_id"]);
 
 $product_name = isset($_POST["pname"]) ? trim($_POST["pname"]) : "";
 if (empty($product_name)) {
@@ -73,9 +73,15 @@ if ($product_discount < 0 || $product_discount > 100) {
     exit;
 }
 
-$product_stock = isset($_POST["pstock"]) ? intval($_POST["pstock"]) : 0;
-if ($product_stock < 0) {
+if (!isset($_POST["pstock"])) {
     $_SESSION["edit_error"] = "Please enter the stock";
+    $response["message"] = $_SESSION["edit_error"];
+    echo json_encode($response);
+    exit;
+}
+$product_stock = intval($_POST["pstock"]);
+if ($product_stock < 0) {
+    $_SESSION["edit_error"] = "stock cant be negative";
     $response["message"] = $_SESSION["edit_error"];
     echo json_encode($response);
     exit;

@@ -4,11 +4,11 @@ require 'config/connection.php';
 require 'validation.php';
 require 'error.php';
 
-$category_id = isset($_POST["category_id"]) ? intval($_POST["category_id"]) : 0;
-if ($category_id <= 0) {
-    $_SESSION["editcategory_error"] = "Invalid category ID";
-    exit;
+if (!isset($_POST["category_id"])) {
+    echo json_encode(["success" => false, "message" =>"Invalid category ID"]);
+    exit();
 }
+$category_id = intval($_POST["category_id"]);
 
 $category_name = isset($_POST["cname"]) ? trim($_POST["cname"]) : '';
 if (empty($category_name)) {
