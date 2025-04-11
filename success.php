@@ -1,9 +1,14 @@
 <?php
+session_start();
 use Dotenv\Dotenv;
 require 'config/connection.php';
 require_once 'vendor/autoload.php';
 require_once 'error.php';
-session_start();
+include 'emailformate.php';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
 echo "<h1>Payment Successful!</h1>";
 echo "<p>Thank you for your purchase.</p>";
@@ -75,8 +80,6 @@ if ($stmp->execute()) {
 }
 $stmp->close();
 
-$dotenv = Dotenv::createImmutable(__DIR__);
-$dotenv->load();
 
 $query = 'select o.order_id, o.total_amount, o.user_id, o.status, o.transaction_timestamp,
                  oi.ordered_quantity, oi.product_discount, oi.product_price, oi.product_name
@@ -137,11 +140,7 @@ foreach ($order_items as $item) {
 }
 
 ob_start();
-include 'emailformate.php';
 $email_body = ob_get_clean();
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
 
 $mail = new PHPMailer(true);
 
