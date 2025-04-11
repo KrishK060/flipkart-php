@@ -1,12 +1,16 @@
 <?php
 session_start();
+
 use Dotenv\Dotenv;
+
 require 'config/connection.php';
 require_once 'vendor/autoload.php';
 require_once 'error.php';
 include 'emailformate.php';
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
