@@ -9,6 +9,7 @@ if ($category_id <= 0) {
     $_SESSION["editcategory_error"] = "Invalid category ID";
     exit;
 }
+
 $category_name = isset($_POST["cname"]) ? trim($_POST["cname"]) : '';
 if (empty($category_name)) {
     $_SESSION["editcategory_error"] = "category name is required";
@@ -40,5 +41,4 @@ if ($category_id > 0 && !empty($category_name)) {
 }
 
 echo json_encode($response);
-
 exit;

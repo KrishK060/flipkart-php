@@ -1,7 +1,5 @@
 <?php
-
 use Dotenv\Dotenv;
-
 require 'config/connection.php';
 require_once 'vendor/autoload.php';
 require_once 'error.php';
@@ -16,7 +14,6 @@ $session = $stripe->checkout->sessions->retrieve($sessionId);
 $paymentid = $session->payment_intent;
 $totalAmount = $session->amount_total / 100;
 $user_id = $_SESSION['user_id'];
-
 
 echo '<pre>';
 print_r($session);

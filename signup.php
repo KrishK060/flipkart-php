@@ -16,7 +16,6 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $errors["email_error"] = "Invalid email format";
 }
 
-
 if (empty($_POST["username"])) {
     $errors["name_error"] = "Username is required";
 }
@@ -43,12 +42,10 @@ if ($check_stmt->num_rows > 0) {
     $errors["name_error"]= "Username already exists";
 }
 
-
 $dob = $_POST["dob"] ?? null;
 if (!$dob) {
     $errors["dob_error"] = "Date of Birth is required";
 }
-
 
 if (empty($_POST["phone_number"])) {
     $errors["phn_error"] = "Phone number is required";
@@ -72,7 +69,7 @@ if (!empty($errors)) {
     $_SESSION['errors'] = $errors;
     header("Location: /assests/html/signup.php");
     exit;
- }
+}
 
 $hash_password = password_hash($password, PASSWORD_BCRYPT);
 

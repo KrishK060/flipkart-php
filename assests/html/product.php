@@ -1,6 +1,5 @@
 <?php
 require '../../error.php';
-session_start();
 require_once $_SERVER['DOCUMENT_ROOT'] . '/admin-verification.php';
 $error = $_SESSION['error'] ?? [];
 unset($_SESSION['error']);
