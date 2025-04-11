@@ -10,7 +10,7 @@ if (!isset($_POST["cart_id"])) {
 }
 $cart_id = intval($_POST["cart_id"]);
 
-if ($cart_id > 0) {
+
     $sql = "select product_id, quantity from cart where cart_id=?";
     $stmp = $conn->prepare($sql);
     $stmp->bind_param('i', $cart_id);
@@ -57,8 +57,6 @@ if ($cart_id > 0) {
         }
         $stmp->close();
     }
-} else {
-    $response = ["success" => false, "message" => "Invalid cart ID"];
-}
+
 
 echo json_encode($response);
