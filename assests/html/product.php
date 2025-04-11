@@ -1,11 +1,7 @@
 <?php
 require '../../error.php';
 session_start();
-if (!isset($_SESSION["username"]) || $_SESSION["user_role"] !== "admin") {
-    header("location: signin.php");
-    exit();
-}
-
+require_once $_SERVER['DOCUMENT_ROOT'] . '/admin-verification.php';
 $error = $_SESSION['error'] ?? [];
 unset($_SESSION['error']);
 ?>
@@ -143,7 +139,7 @@ unset($_SESSION['error']);
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
         crossorigin="anonymous"></script>
-  <script src="/assests/js/product.js"></script>
+    <script src="/assests/js/product.js"></script>
 </body>
 
 </html>

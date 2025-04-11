@@ -26,7 +26,6 @@ if (!preg_match("/^[a-zA-Z0-9-' ]*$/", $product_name)) {
     exit;
 }
 
-
 $product_price = isset($_POST["pprice"]) ? trim($_POST["pprice"]) : "";
 if (empty($product_price) || $product_price < 0) {
     $_SESSION["edit_error"] = "Price is required";
@@ -35,8 +34,6 @@ if (empty($product_price) || $product_price < 0) {
     exit;
 }
 
-
-
 $product_description = isset($_POST["ptext"]) ? trim($_POST["ptext"]) : "";
 if (empty($product_description)) {
     $_SESSION["edit_error"] = "Description is required";
@@ -44,7 +41,6 @@ if (empty($product_description)) {
     echo json_encode($response);
     exit;
 }
-
 
 $product_category = isset($_POST["pcategory"]) ? trim($_POST["pcategory"]) : "";
 if (empty($product_category)) {
@@ -77,8 +73,6 @@ if ($product_discount < 0 || $product_discount > 100) {
     exit;
 }
 
-
-
 $product_stock = isset($_POST["pstock"]) ? intval($_POST["pstock"]) : 0;
 if ($product_stock < 0) {
     $_SESSION["edit_error"] = "Please enter the stock";
@@ -86,7 +80,6 @@ if ($product_stock < 0) {
     echo json_encode($response);
     exit;
 }
-
 
 $is_image_uploaded = isset($_FILES["pimg"]) && isset($_FILES["pimg"]["name"]) && !empty($_FILES["pimg"]["name"]);
 $product_img = "";
@@ -100,7 +93,6 @@ if ($is_image_uploaded) {
     $target_file = $upload_dir . $file_name;
     $product_img = uniqid() . "_" . $file_name;
     $target_file = $upload_dir . $product_img;
-
 
     if (!move_uploaded_file($_FILES["pimg"]["tmp_name"], $target_file)) {
         $response["message"] = "Failed to upload image";

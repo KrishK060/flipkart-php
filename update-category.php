@@ -4,7 +4,6 @@ require 'config/connection.php';
 require 'validation.php';
 require 'error.php';
 
-
 $category_id = isset($_POST["category_id"]) ? intval($_POST["category_id"]) : 0;
 if ($category_id <= 0) {
     $_SESSION["editcategory_error"] = "Invalid category ID";

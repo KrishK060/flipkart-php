@@ -11,7 +11,7 @@ if (empty($_POST["pname"])) {
 } else {
     $product_name = htmlspecialchars($_POST["pname"]);
     if (!preg_match("/^[a-zA-Z-' ]*$/", $product_name)) {
-        $error["name_error"] = "Only letters and white spaces aren't allowed";
+        $error["name_error"] = "letters and white spaces aren't allowed";
     }
 }
 

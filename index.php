@@ -1,12 +1,6 @@
 <?php
 require 'error.php';
-
-session_start();
-if (!isset($_SESSION["username"])) {
-    header("location:/assests/html/signin.php");
-    exit();
-} else {
-}
+require_once $_SERVER['DOCUMENT_ROOT'] .'/verified-user.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,7 +33,7 @@ if (!isset($_SESSION["username"])) {
                     <div class="dropdown">
                         <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            <i class="fa-solid fa-circle-user"></i><span class="dn3"> <?= $_SESSION["username"] ?? 'Login' ?></span>
+                            <i class="fa-solid fa-circle-user"></i><span class="dn3"> <?= $_SESSION["username"]?></span>
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">My profile</a></li>
@@ -67,9 +61,7 @@ if (!isset($_SESSION["username"])) {
                         </button>
                         <span class="dn3">Customer</span>
                     </div>
-                    <?php if (isset($_SESSION['username']) && $_SESSION["user_role"] == "admin") {
-                        echo '   <a class="btn btn-primary ms-2 admin" href="/assests/html/admin.php" role="button">admin panel</a>';
-                    } ?>
+                    <a class="btn btn-primary ms-2 admin" href="/assests/html/admin.php" role="button">admin panel</a>
                     <a href="/logout.php" class="btn btn-danger mr-2" onclick="return confirm('Are you sure you want to log out?')">Logout</a>
                 </div>
             </nav>

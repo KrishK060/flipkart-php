@@ -86,7 +86,9 @@ function deletecart(event) {
         data: { cart_id: del_cart_id },
         dataType: "json",
         success: function (response) {
-            getcartdata();
+            if (response.success) {
+                window.location.reload();
+            }
         },
         error: function (xhr, status, error) {
             console.error("AJAX Error:", status, error);
@@ -104,15 +106,9 @@ function decrementitem(event) {
         data: { cart_id: decrement_id },
         dataType: "json",
         success: function (response) {
-            console.log(response);
-
             if (response.success) {
-                if (response.cartDetail && response.cartDetail.quantity > 0) {
+                getcartdata();
 
-                    getcartdata();
-                } else {
-                    getcartdata();
-                }
             } else {
                 alert("Failed: " + response.message);
             }
@@ -149,11 +145,8 @@ function incrementitem(event) {
 }
 
 document.getElementById("payment").addEventListener("click", async function (e) {
-    console.log("clicked");
     e.preventDefault();
-
     let totalprice = parseFloat($('#totalprice').text());
-
     try {
         let response = await fetch("../../checkout.php", {
             method: "POST",

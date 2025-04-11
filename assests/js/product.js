@@ -130,7 +130,6 @@ function updatedata(event) {
                     display_data();
                     window.location.reload();
                 } else {
-                    console.log(response);
                     $('#custome_error').text(response['message']);
 
                 }
@@ -155,7 +154,6 @@ function deleteproduct(event) {
         data: { product_id: del_product_id },
         dataType: "json",
         success: function (response) {
-            console.log(response);
             window.location.reload();
         },
         error: function (xhr, status, error) {

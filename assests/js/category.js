@@ -30,8 +30,8 @@ function getdata() {
 function updatedata(event) {
     event.preventDefault();
 
-    var new_category_id = $(this).data('id');
-    var current_category_name = $(this).data('name');
+    let new_category_id = $(this).data('id');
+    let current_category_name = $(this).data('name');
 
     document.getElementById('cname').value = current_category_name;
     document.getElementById('category_id').value = new_category_id;
@@ -55,7 +55,6 @@ function updatedata(event) {
                     getdata();
                     window.location.reload();
                 } else {
-                    console.log(response);
                     $('#custome_error').text(response['message']);
                 }
             },
@@ -70,7 +69,7 @@ function updatedata(event) {
 
 function deletecategory(event) {
     event.preventDefault();
-    var del_category_id = $(this).data('id');
+    let del_category_id = $(this).data('id');
     $.ajax({
         type: "POST",
         url: "/delete-category.php",

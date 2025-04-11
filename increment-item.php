@@ -1,5 +1,4 @@
 <?php
-
 require 'config/connection.php';
 require 'validation.php';
 require 'error.php';
@@ -39,6 +38,8 @@ if ($cart_id > 0) {
             $response = ["success" => false, "message" => "Failed to update product stock"];
         }
         $stmp->close();
+    }else{
+        $response = ["success" => false, "message" => "product id not found"];
     }
 
     if ($quantity >= 0) {

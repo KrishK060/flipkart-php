@@ -4,16 +4,14 @@ use Dotenv\Dotenv;
 
 require 'config/connection.php';
 require_once 'vendor/autoload.php';
-require_once 'config.php';
 require_once 'error.php';
-require '.env';
 session_start();
 
 echo "<h1>Payment Successful!</h1>";
 echo "<p>Thank you for your purchase.</p>";
 
 $sessionId = $_REQUEST['provider_session_id'];
-$stripe = new \Stripe\StripeClient(sk_test);
+$stripe = new \Stripe\StripeClient($_ENV['stripeskkey']);
 $session = $stripe->checkout->sessions->retrieve($sessionId);
 $paymentid = $session->payment_intent;
 $totalAmount = $session->amount_total / 100;
@@ -26,7 +24,6 @@ print_r($session);
 if (!$user_id) {
     die("Error: User ID is missing.");
 }
-
 
 $sql = 'insert into orders (user_id, total_amount, transaction_timestamp) values (?, ?, NOW())';
 $stmt = $conn->prepare($sql);
@@ -41,7 +38,6 @@ if ($stmt->execute()) {
 $order_id = $conn->insert_id;
 $stmt->close();
 
-
 $sql = 'select * from cart where user_id = ?';
 $stmt = $conn->prepare($sql);
 $stmt->bind_param('i', $user_id);
@@ -49,7 +45,6 @@ $stmt->execute();
 $result = $stmt->get_result();
 $products = $result->fetch_all(MYSQLI_ASSOC);
 $stmt->close();
-
 
 $insert_orderlist = 'insert into orderlist (order_id, product_id, ordered_quantity, product_name, product_price, product_discount) values (?, ?, ?, ?, ?, ?)';
 $orderlist_stmt = $conn->prepare($insert_orderlist);
@@ -72,7 +67,6 @@ foreach ($products as $product) {
 
 $orderlist_stmt->close();
 
-
 $sql = "delete from cart where user_id = ?";
 $stmp = $conn->prepare($sql);
 $stmp->bind_param('i', $user_id);
@@ -83,7 +77,6 @@ if ($stmp->execute()) {
     $response = ["success" => false, "message" => "Failed to delete cart"];
 }
 $stmp->close();
-
 
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
@@ -115,7 +108,6 @@ while ($row = $result->fetch_assoc()) {
 
 $stmt_order->close();
 
-
 $user_name = $_SESSION['username'];
 $sql = 'select email from user where username = ?';
 $stmt_email = $conn->prepare($sql);
@@ -130,13 +122,11 @@ if ($email_result && $email_result->num_rows > 0) {
     die("User email not found.");
 }
 
-
 $order_id = $order_info['order_id'];
 $txn_id = $order_info['transaction_timestamp'];
 $amount = $order_info['total_amount'];
 $order_date = $txn_id ? date("d-m-Y", strtotime($txn_id)) : "N/A";
 $transactionId = $session->payment_intent;
-
 
 $product_rows = "";
 foreach ($order_items as $item) {
@@ -149,29 +139,25 @@ foreach ($order_items as $item) {
     </tr>";
 }
 
-
 ob_start();
 include 'emailformate.php';
 $email_body = ob_get_clean();
 
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-
-require 'vendor/autoload.php';
 
 $mail = new PHPMailer(true);
 
 try {
     $mail->isSMTP();
-    $mail->Host = 'smtp.gmail.com';
+    $mail->Host = $_ENV['host'];
     $mail->SMTPAuth = true;
     $mail->Username = $_ENV["sendersemail"];
     $mail->Password = $_ENV["apppassword"];
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-    $mail->Port = 587;
+    $mail->Port = $_ENV['port'];
 
-    $mail->setFrom('specialagent0601@gmail.com', 'you account is now under surveillance of special agency');
+    $mail->setFrom($_ENV["sendersemail"], 'you account is now under surveillance of special agency');
     $mail->addAddress($user_email);
     $mail->isHTML(true);
     $mail->AltBody = "Your order #$order_id was placed successfully. Amount: ₹$amount. Transaction ID: $transactionId.";
