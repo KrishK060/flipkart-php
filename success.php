@@ -6,7 +6,6 @@ use Dotenv\Dotenv;
 require 'config/connection.php';
 require_once 'vendor/autoload.php';
 require_once 'error.php';
-include 'emailformate.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -144,6 +143,7 @@ foreach ($order_items as $item) {
 }
 
 ob_start();
+include 'emailformate.php';
 $email_body = ob_get_clean();
 
 $mail = new PHPMailer(true);
