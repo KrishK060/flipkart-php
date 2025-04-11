@@ -1,0 +1,20 @@
+body {
+    background-image: linear-gradient(to right, #5433ff, #20bdff, #a5fecb);
+}
+
+.loginpage {
+    padding: 150px;
+}
+
+#signup {
+    border: 5px solid black;
+}
+
+#sign-in {
+    animation-iteration-count: infinite;
+    border: 5px solid black;
+}
+
+.icons {
+    margin: 0 5px;
+}
