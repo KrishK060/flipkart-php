@@ -1,3 +1,10 @@
+<?php
+session_start();
+ if (isset($_SESSION["username"])) {
+    header("location:/");
+    exit();
+}
+?>
 <html lang="en">
 
 <head>
@@ -17,7 +24,6 @@
                     class="fa-solid fa-user-plus"></i>Signup</a>
         </div>
         <?php
-        session_start();
         if (isset($_SESSION['login_error'])) {
             echo '<div class="error">' . $_SESSION['login_error'] . '</div>';
             unset($_SESSION['login_error']);

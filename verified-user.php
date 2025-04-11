@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION["username"])) {
-    header("location: /assests/html/signin.php");
+    header("location:signin");
     exit();
 }
 
@@ -14,5 +14,3 @@ if ($_SESSION["user_role"] === "user") {
         };
     </script>';
 }
-
-?>

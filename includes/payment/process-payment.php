@@ -1,9 +1,8 @@
 <?php
-require_once '../../vendor/autoload.php';
+require_once $_SERVER['DOCUMENT_ROOT'] .'/vendor/autoload.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/error/validation.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/config/connection.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/error/error.php';
-
 
 $dotenv = Dotenv\Dotenv::createImmutable('../../');
 $dotenv->load();

@@ -33,7 +33,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/verified-user.php'
                     <div class="dropdown">
                         <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            <i class="fa-solid fa-circle-user"></i><span class="dn3"><?= $_SESSION["username"]?></span>
+                            <i class="fa-solid fa-circle-user"></i><span class="dn3"><?= $_SESSION["username"] ?></span>
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">My profile</a></li>

@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] .'/verified-user.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/verified-user.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,8 +32,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] .'/verified-user.php';
                     <div class="dropdown">
                         <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            <i class="fa-solid fa-circle-user"></i><span class="dn3"> <?= $_SESSION["username"]?></span>
-                            <i class="fa-solid fa-circle-user"></i><span class="dn3"> <?= $_SESSION["username"]?></span>
+                            <i class="fa-solid fa-circle-user"></i><span class="dn3"> <?= $_SESSION["username"] ?></span>
+
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">My profile</a></li>
@@ -61,11 +61,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] .'/verified-user.php';
                         </button>
                         <span class="dn3">Customer</span>
                     </div>
-                    <a class="btn btn-primary ms-2 admin" href="/assests/html/admin.php" role="button">admin panel</a>
-                    <a href="/logout.php" class="btn btn-danger mr-2" onclick="return confirm('Are you sure you want to log out?')">Logout</a>
-                    <?php if (isset($_SESSION['username']) && $_SESSION["user_role"] == "admin") {
-                        echo '   <a class="btn btn-primary ms-2 admin" href="admin" role="button">admin panel</a>';
-                    } ?>
+                    <a class="btn btn-primary ms-2 admin" href="admin" role="button">admin panel</a>
                     <a href="/includes/logout.php" class="btn btn-danger mr-2" onclick="return confirm('Are you sure you want to log out?')">Logout</a>
                 </div>
             </nav>

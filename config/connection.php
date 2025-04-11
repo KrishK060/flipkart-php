@@ -1,6 +1,6 @@
 <?php
 use Dotenv\Dotenv;
-require_once 'vendor/autoload.php';
+require_once $_SERVER['DOCUMENT_ROOT'] .'/vendor/autoload.php';
 $dotenv = Dotenv::createImmutable(__DIR__.'/../');
 $dotenv->load();
 $servername = $_ENV["servername"];

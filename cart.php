@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] .'/verified-user.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/verified-user.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/config/connection.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/error/error.php';
 

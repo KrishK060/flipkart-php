@@ -4,11 +4,11 @@ session_start();
 require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/config/connection.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/error/error.php';
-// require_once $_SERVER['DOCUMENT_ROOT'] . '/config/stripe-config.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/.env';
+
 use Dotenv\Dotenv;
+
 $dotenv = Dotenv::createImmutable(__DIR__);
- $dotenv->load();
+$dotenv->load();
 echo "<h1>Payment Successful!</h1>";
 echo "<p>Thank you for your purchase.</p>";
 
@@ -143,14 +143,11 @@ foreach ($order_items as $item) {
 }
 
 ob_start();
-include 'emailformate.php';
+include 'includes/payment/emailformate.php';
 $email_body = ob_get_clean();
-
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-
-// require 'vendor/autoload.php';
 
 $mail = new PHPMailer(true);
 

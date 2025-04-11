@@ -6,7 +6,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/error/error.php';
 
 if (empty($_POST["username"]) || empty($_POST["password"])) {
     $_SESSION['login_error'] = "Username and password are required";
-    header("Location:/signin.php");
+    header("Location:/signin");
     exit;
 }
 
