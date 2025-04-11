@@ -1,7 +1,7 @@
 <?php
 require 'error/error.php';
 session_start();
-if (!isset($_SESSION["username"]) || $_SESSION["user_role"] !== "admin") {
+if (!isset($_SESSION["username"])) {
     header("location: signin");
     exit();
 }
@@ -37,7 +37,7 @@ if (!isset($_SESSION["username"]) || $_SESSION["user_role"] !== "admin") {
                     <div class="dropdown">
                         <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            <i class="fa-solid fa-circle-user"></i><span class="dn3"><?= $_SESSION["username"] ?? 'Login' ?></span>
+                            <i class="fa-solid fa-circle-user"></i><span class="dn3"><?= $_SESSION["username"]?></span>
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">My profile</a></li>

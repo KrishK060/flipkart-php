@@ -39,12 +39,12 @@ if (!isset($_SESSION["username"])) {
                     <div class="dropdown">
                         <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            <i class="fa-solid fa-circle-user"></i><span class="dn3"> <?= $_SESSION["username"] ?? 'Login' ?></span>
+                            <i class="fa-solid fa-circle-user"></i><span class="dn3"> <?= $_SESSION["username"]?></span>
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">My profile</a></li>
                             <li><a class="dropdown-item" href="#">flipkart plus zone</a></li>
-                            <li><a class="dropdown-item" href="order">orders</a></li>
+                            <li><a class="dropdown-item" href="order" onclick="myFunction()">orders</a></li>
                             <li><a class="dropdown-item" href="#">whishlist</a></li>
                             <li><a class="dropdown-item" href="#">Rewards</a></li>
                             <li><a class="dropdown-item" href="#">Giftcard</a></li>
